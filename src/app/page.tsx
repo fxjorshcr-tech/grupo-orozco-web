@@ -112,9 +112,15 @@ export default function Home() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-20">
             <div className="flex-shrink-0">
-              <h1 className="text-2xl font-bold text-white tracking-wide">
-                GRUPO <span className="text-[#E6BE4D]">OROZ</span> CR
-              </h1>
+              {/* Logo con contorno blanco */}
+              <div className="relative h-14 w-32 bg-white rounded-lg p-1 shadow-lg">
+                <Image
+                  src={SUPABASE_IMAGES.mainLogo}
+                  alt="Grupo Oroz CR"
+                  fill
+                  className="object-contain p-1"
+                />
+              </div>
             </div>
             <div className="hidden md:flex items-center space-x-1">
               {['Inicio', 'Parques', 'OrostudiosCR', 'Nosotros', 'Contacto'].map((item, i) => (
@@ -139,16 +145,13 @@ export default function Home() {
             <span className="text-[#E6BE4D] text-sm font-medium">Costa Rica</span>
           </div>
           
-          {/* Logo principal */}
-          <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto mb-8">
-            <Image
-              src={SUPABASE_IMAGES.mainLogo}
-              alt="Grupo Oroz CR Logo"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+            Grupo{' '}
+            <span className="text-[#E6BE4D]">
+              Oroz
+            </span>{' '}
+            CR
+          </h1>
           
           <p className="text-xl md:text-2xl text-white/70 mb-4 font-light max-w-3xl mx-auto">
             Expertos en administración de parques de aventura y contenido fotográfico profesional
@@ -416,18 +419,18 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {oficinasOrostudios.map((oficina, index) => (
                 <div
                   key={index}
-                  className={`group relative bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border transition-all duration-500 ${
+                  className={`group relative bg-white/5 backdrop-blur-xl rounded-3xl overflow-hidden border-2 transition-all duration-500 ${
                     oficina.activa 
-                      ? 'border-white/10 hover:border-[#C9A227]/50 hover:-translate-y-1' 
-                      : 'border-white/5 opacity-70'
+                      ? 'border-[#C9A227]/50 hover:border-[#E6BE4D] hover:-translate-y-2 hover:shadow-lg hover:shadow-[#C9A227]/20' 
+                      : 'border-white/10 opacity-70'
                   }`}
                 >
                   {/* Foto */}
-                  <div className="relative h-36 bg-gradient-to-br from-white/10 to-white/5 overflow-hidden">
+                  <div className="relative h-48 bg-gradient-to-br from-white/10 to-white/5 overflow-hidden">
                     {oficina.foto ? (
                       <>
                         <Image
@@ -441,25 +444,25 @@ export default function Home() {
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="text-center">
-                          <svg className="w-10 h-10 text-white/20 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-12 h-12 text-white/20 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                           </svg>
-                          <span className="text-[#E6BE4D] text-xs font-medium">Próximamente</span>
+                          <span className="text-[#E6BE4D] text-sm font-medium">Próximamente</span>
                         </div>
                       </div>
                     )}
                     {oficina.proximamente && (
-                      <div className="absolute top-2 right-2 px-2 py-1 bg-gradient-to-r from-[#996515] via-[#C9A227] to-[#E6BE4D] text-slate-950 text-xs font-bold rounded">
+                      <div className="absolute top-3 right-3 px-3 py-1.5 bg-gradient-to-r from-[#996515] via-[#C9A227] to-[#E6BE4D] text-slate-950 text-xs font-bold rounded-full">
                         2026
                       </div>
                     )}
                   </div>
 
                   {/* Info */}
-                  <div className="p-4">
-                    <h4 className="text-white font-semibold text-sm mb-1">{oficina.nombre}</h4>
-                    <div className="flex items-center text-xs text-white/40">
-                      <svg className="w-3 h-3 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
+                  <div className="p-5">
+                    <h4 className="text-white font-bold text-base mb-2">{oficina.nombre}</h4>
+                    <div className="flex items-center text-sm text-white/50">
+                      <svg className="w-4 h-4 mr-2 text-[#E6BE4D]" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                       </svg>
                       {oficina.ubicacion}
