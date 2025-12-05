@@ -7,10 +7,15 @@ import { useEffect, useState } from 'react';
 // URLs de Supabase
 const SUPABASE_IMAGES = {
   background: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/_BBB3750.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9fQkJCMzc1MC53ZWJwIiwiaWF0IjoxNzY0ODY5MDMxLCJleHAiOjE3OTY0MDUwMzF9.0FEkoFt-EQMTou1bOrtPZdukelI4D21oGgEephrGw_g",
+  mainLogo: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/grupo-oroz-logo.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9ncnVwby1vcm96LWxvZ28uanBnIiwiaWF0IjoxNzY0OTU2NTU3LCJleHAiOjE3OTY0OTI1NTd9.2dcI2ZZTFqcNCQdAQRoyFdPv47K9w50vTHc8eSnZwLg",
   ecoglide: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/logo-ecoglide-arenal-park.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9sb2dvLWVjb2dsaWRlLWFyZW5hbC1wYXJrLndlYnAiLCJpYXQiOjE3NjQ4NjkwNDksImV4cCI6MTc5NjQwNTA0OX0.JbTaJxokTytMoYCxzzhR0VN9BNiMTCgRPMVBRRBuMwY",
-  poas: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/logo-poas-adventure-park.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9sb2dvLXBvYXMtYWR2ZW50dXJlLXBhcmsud2VicCIsImlhdCI6MTc2NDg2OTA2MSwiZXhwIjoxNzk2NDA1MDYxfQ.0r8rmTXaLmqD2iON1No36RRaViq5hW-_sTa02ry4LrI",
+  poas: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/poas-adventure-park.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9wb2FzLWFkdmVudHVyZS1wYXJrLndlYnAiLCJpYXQiOjE3NjQ5NTU4MzYsImV4cCI6MTc5NjQ5MTgzNn0.tfroBG9kBFLb6R7224gqDhd5xVhOo3Y4jdsF4OPM6M0",
   skyline: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/logo-skyline-adventure-park.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9sb2dvLXNreWxpbmUtYWR2ZW50dXJlLXBhcmsud2VicCIsImlhdCI6MTc2NDg2OTEwMCwiZXhwIjoxNzk2NDA1MTAwfQ.bkcOng4Ys_mC3HpAK4594-7mMuu4y5ENYc2xsLytgtU",
   orostudios: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/Orostudios%20CR%20Logo.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9Pcm9zdHVkaW9zIENSIExvZ28ud2VicCIsImlhdCI6MTc2NDg2OTExMywiZXhwIjoxNzk2NDA1MTEzfQ.30JfBaXmaeZ0HCECt4Nq-b6AEgNF_0dEqVaIXoDWvBc",
+  // Fotos de oficinas
+  oficinaEcoglide: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/ecoglide-oficina.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9lY29nbGlkZS1vZmljaW5hLnBuZyIsImlhdCI6MTc2NDg3MjIyNywiZXhwIjoxNzk2NDA4MjI3fQ.KIfP-37WDz31tsRryPXcOPJt2jBE1j91-HRTxzPalyw",
+  oficinaSkyline: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/skyline-oficina.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9za3lsaW5lLW9maWNpbmEud2VicCIsImlhdCI6MTc2NDg3MjI0MCwiZXhwIjoxNzk2NDA4MjQwfQ.ttqWKE6sjS3og01L4hPl9kZTpdfA03fizFmn-sM6P3c",
+  oficinaAMA: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/ama-oficina.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9hbWEtb2ZpY2luYS53ZWJwIiwiaWF0IjoxNzY0ODcyMjE4LCJleHAiOjE3OTY0MDgyMTh9.bquypJ16I5U-XRfh6njGbzT2Sxy4pZtZ3ZX2cj-QOBI",
 };
 
 export default function Home() {
@@ -56,19 +61,19 @@ export default function Home() {
     {
       nombre: "Ecoglide Arenal Park",
       ubicacion: "La Fortuna, San Carlos",
-      foto: null,
+      foto: SUPABASE_IMAGES.oficinaEcoglide,
       activa: true
     },
     {
       nombre: "Skyline Canopy Tour",
       ubicacion: "Santa Cruz, Guanacaste",
-      foto: null,
+      foto: SUPABASE_IMAGES.oficinaSkyline,
       activa: true
     },
     {
       nombre: "Arenal Mundo Aventura",
       ubicacion: "La Fortuna, San Carlos",
-      foto: null,
+      foto: SUPABASE_IMAGES.oficinaAMA,
       activa: true
     },
     {
@@ -134,13 +139,16 @@ export default function Home() {
             <span className="text-[#E6BE4D] text-sm font-medium">Costa Rica</span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
-            Grupo{' '}
-            <span className="text-[#E6BE4D]">
-              Oroz
-            </span>{' '}
-            CR
-          </h1>
+          {/* Logo principal */}
+          <div className="relative w-64 h-64 md:w-80 md:h-80 mx-auto mb-8">
+            <Image
+              src={SUPABASE_IMAGES.mainLogo}
+              alt="Grupo Oroz CR Logo"
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
           
           <p className="text-xl md:text-2xl text-white/70 mb-4 font-light max-w-3xl mx-auto">
             Expertos en administración de parques de aventura y contenido fotográfico profesional
@@ -418,20 +426,28 @@ export default function Home() {
                       : 'border-white/5 opacity-70'
                   }`}
                 >
-                  {/* Foto placeholder */}
+                  {/* Foto */}
                   <div className="relative h-36 bg-gradient-to-br from-white/10 to-white/5 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <svg className="w-10 h-10 text-white/20 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                        {oficina.proximamente ? (
+                    {oficina.foto ? (
+                      <>
+                        <Image
+                          src={oficina.foto}
+                          alt={`Oficina ${oficina.nombre}`}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" />
+                      </>
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <svg className="w-10 h-10 text-white/20 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                          </svg>
                           <span className="text-[#E6BE4D] text-xs font-medium">Próximamente</span>
-                        ) : (
-                          <span className="text-white/30 text-xs font-medium">Foto próximamente</span>
-                        )}
+                        </div>
                       </div>
-                    </div>
+                    )}
                     {oficina.proximamente && (
                       <div className="absolute top-2 right-2 px-2 py-1 bg-gradient-to-r from-[#996515] via-[#C9A227] to-[#E6BE4D] text-slate-950 text-xs font-bold rounded">
                         2026
