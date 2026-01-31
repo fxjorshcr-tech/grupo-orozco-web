@@ -239,10 +239,10 @@ export default function Home() {
                   <Image src={SUPABASE_IMAGES.crDoing} alt="CR Doing" fill className="object-contain p-6" />
                 </div>
                 <h3 className="text-3xl font-black text-white mb-4 text-center">CR Doing</h3>
-                <p className="text-white/70 text-center text-lg mb-6 leading-relaxed">
-                  Agencia especializada en tours de aventura y experiencias personalizadas para grupos pequeños y familias.
+                <p className="text-white/70 text-lg mb-6 leading-relaxed">
+                  Agencia especializada en tours de aventura y experiencias personalizadas para grupos pequeños y familias. Creamos itinerarios únicos adaptados a tus intereses.
                 </p>
-                <div className="space-y-3 mb-8">
+                <div className="space-y-3 mb-6">
                   <h4 className="text-[#E6BE4D] font-bold text-sm uppercase tracking-wider">Servicios Destacados</h4>
                   <ul className="space-y-2">
                     {['Tours de aventura extrema', 'Caminatas en volcanes', 'Rafting y kayak', 'Tours nocturnos', 'Experiencias gastronómicas'].map((item, i) => (
@@ -255,32 +255,23 @@ export default function Home() {
                     ))}
                   </ul>
                 </div>
-                <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                  <div>
-                    <p className="text-white/40 text-sm">Desde</p>
-                    <p className="text-[#E6BE4D] font-black text-2xl">$45 USD</p>
-                  </div>
-                  <a href="#contacto" className="px-6 py-3 bg-[#C9A227]/20 hover:bg-[#C9A227]/40 text-[#E6BE4D] font-bold rounded-xl transition-all">
-                    Consultar
-                  </a>
-                </div>
+                <a href="#contacto" className="w-full block text-center px-6 py-3 bg-[#C9A227]/20 hover:bg-[#C9A227]/40 text-[#E6BE4D] font-bold rounded-xl transition-all">
+                  Contactar
+                </a>
               </div>
             </div>
 
             {/* CR PARADISE */}
             <div className="group">
               <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C9A227]/20 p-10">
-                <div className="absolute top-6 right-6 px-4 py-2 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 text-sm font-black rounded-full">
-                  MÁS POPULAR
-                </div>
                 <div className="relative h-52 w-full bg-white rounded-2xl shadow-xl mb-8">
                   <Image src={SUPABASE_IMAGES.crParadise} alt="CR Paradise" fill className="object-contain p-6" />
                 </div>
                 <h3 className="text-3xl font-black text-white mb-4 text-center">CR Paradise</h3>
-                <p className="text-white/70 text-center text-lg mb-6 leading-relaxed">
-                  Tu conexión directa con el paraíso costarricense. Paquetes completos que incluyen hospedaje, transporte y actividades.
+                <p className="text-white/70 text-lg mb-6 leading-relaxed">
+                  Tu conexión directa con el paraíso costarricense. Paquetes completos que incluyen hospedaje, transporte y actividades para una experiencia sin preocupaciones.
                 </p>
-                <div className="space-y-3 mb-8">
+                <div className="space-y-3 mb-6">
                   <h4 className="text-[#E6BE4D] font-bold text-sm uppercase tracking-wider">Servicios Destacados</h4>
                   <ul className="space-y-2">
                     {['Paquetes todo incluido', 'Hoteles seleccionados', 'Transporte privado', 'Guías bilingües', 'Asistencia 24/7'].map((item, i) => (
@@ -293,15 +284,9 @@ export default function Home() {
                     ))}
                   </ul>
                 </div>
-                <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                  <div>
-                    <p className="text-white/40 text-sm">Desde</p>
-                    <p className="text-[#E6BE4D] font-black text-2xl">$199 USD</p>
-                  </div>
-                  <a href="#contacto" className="px-6 py-3 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 font-bold rounded-xl transition-all hover:scale-105">
-                    Reservar
-                  </a>
-                </div>
+                <a href="#contacto" className="w-full block text-center px-6 py-3 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 font-bold rounded-xl transition-all hover:scale-105">
+                  Contactar
+                </a>
               </div>
             </div>
 
@@ -312,10 +297,10 @@ export default function Home() {
                   <Image src={SUPABASE_IMAGES.gttTours} alt="GTT Tours" fill className="object-contain p-6" />
                 </div>
                 <h3 className="text-3xl font-black text-white mb-4 text-center">GTT Tours</h3>
-                <p className="text-white/70 text-center text-lg mb-6 leading-relaxed">
-                  Guanacaste Top Tours - Especialistas en la zona de Guanacaste con tours premium y experiencias exclusivas.
+                <p className="text-white/70 text-lg mb-6 leading-relaxed">
+                  Guanacaste Top Tours - Especialistas en la zona de Guanacaste con tours premium, experiencias exclusivas y el mejor servicio de la región.
                 </p>
-                <div className="space-y-3 mb-8">
+                <div className="space-y-3 mb-6">
                   <h4 className="text-[#E6BE4D] font-bold text-sm uppercase tracking-wider">Servicios Destacados</h4>
                   <ul className="space-y-2">
                     {['Tours en Guanacaste', 'Playas paradisíacas', 'Snorkeling y buceo', 'Avistamiento de fauna', 'Tours en catamarán'].map((item, i) => (
@@ -328,32 +313,11 @@ export default function Home() {
                     ))}
                   </ul>
                 </div>
-                <div className="flex items-center justify-between pt-6 border-t border-white/10">
-                  <div>
-                    <p className="text-white/40 text-sm">Desde</p>
-                    <p className="text-[#E6BE4D] font-black text-2xl">$65 USD</p>
-                  </div>
-                  <a href="#contacto" className="px-6 py-3 bg-[#C9A227]/20 hover:bg-[#C9A227]/40 text-[#E6BE4D] font-bold rounded-xl transition-all">
-                    Consultar
-                  </a>
-                </div>
+                <a href="#contacto" className="w-full block text-center px-6 py-3 bg-[#C9A227]/20 hover:bg-[#C9A227]/40 text-[#E6BE4D] font-bold rounded-xl transition-all">
+                  Contactar
+                </a>
               </div>
             </div>
-          </div>
-
-          {/* Stats de agencias */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
-            {[
-              { value: "+5,000", label: "Clientes Satisfechos" },
-              { value: "15+", label: "Años de Experiencia" },
-              { value: "50+", label: "Destinos Disponibles" },
-              { value: "4.9/5", label: "Calificación Promedio" }
-            ].map((stat, i) => (
-              <div key={i} className="text-center p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
-                <div className="text-4xl md:text-5xl font-black text-[#E6BE4D] mb-2">{stat.value}</div>
-                <div className="text-white/60 font-medium">{stat.label}</div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -682,6 +646,87 @@ export default function Home() {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== SOBRE GRUPO OROZ ==================== */}
+      <section className="relative z-10 py-40 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-gradient-to-br from-[#C9A227]/10 to-[#996515]/5 backdrop-blur-xl rounded-[3rem] border-2 border-[#C9A227]/30 p-12 lg:p-20">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-8">
+                  NUESTRA HISTORIA
+                </span>
+                <h2 className="text-5xl md:text-6xl font-black text-white mb-8 leading-tight">
+                  ¿Por qué elegir a <span className="text-[#E6BE4D]">Grupo Oroz</span>?
+                </h2>
+                <p className="text-xl text-white/70 mb-8 leading-relaxed">
+                  Con más de <span className="text-[#E6BE4D] font-bold">20 años de experiencia</span> en el sector turístico costarricense, Grupo Oroz se ha consolidado como un holding empresarial líder que integra servicios de administración de parques de aventura, agencias de viajes, transporte, tecnología y construcción especializada.
+                </p>
+                <p className="text-xl text-white/70 mb-10 leading-relaxed">
+                  Nuestra misión es ofrecer <span className="text-[#E6BE4D] font-bold">soluciones integrales</span> que garanticen experiencias turísticas excepcionales, manteniendo los más altos estándares de calidad y seguridad en cada uno de nuestros servicios.
+                </p>
+
+                <div className="grid grid-cols-2 gap-6 mb-10">
+                  {[
+                    { icon: "M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z", title: "Seguridad Certificada", desc: "Estándares ACCT internacionales" },
+                    { icon: "M13 10V3L4 14h7v7l9-11h-7z", title: "Innovación Constante", desc: "Tecnología de punta" },
+                    { icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z", title: "Equipo Experto", desc: "+100 profesionales" },
+                    { icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z", title: "Cobertura Nacional", desc: "Todo Costa Rica" }
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-4">
+                      <div className="bg-[#C9A227]/20 w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg className="w-7 h-7 text-[#E6BE4D]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={item.icon} />
+                        </svg>
+                      </div>
+                      <div>
+                        <h4 className="text-white font-bold mb-1">{item.title}</h4>
+                        <p className="text-white/50 text-sm">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <a href="#contacto" className="bg-gradient-to-r from-[#996515] via-[#C9A227] to-[#E6BE4D] hover:shadow-xl hover:shadow-[#C9A227]/30 inline-flex items-center gap-3 px-10 py-5 text-slate-950 font-black text-lg rounded-2xl transition-all duration-300 hover:scale-105">
+                  Contáctanos Hoy
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </a>
+              </div>
+
+              <div className="relative">
+                <div className="relative bg-white/5 backdrop-blur-xl rounded-[2rem] border border-white/10 p-10">
+                  <div className="relative h-40 w-full mb-10">
+                    <Image src={SUPABASE_IMAGES.mainLogo} alt="Grupo Oroz CR" fill className="object-contain" />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-6">
+                    {[
+                      { value: "+20", label: "Años de Experiencia" },
+                      { value: "3", label: "Parques Administrados" },
+                      { value: "3", label: "Agencias de Viajes" },
+                      { value: "+10", label: "Empresas del Grupo" }
+                    ].map((stat, i) => (
+                      <div key={i} className="text-center p-6 bg-white/5 rounded-2xl border border-white/10">
+                        <div className="text-4xl font-black text-[#E6BE4D] mb-2">{stat.value}</div>
+                        <div className="text-white/50 text-sm font-medium">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-10 p-6 bg-[#C9A227]/10 rounded-2xl border border-[#C9A227]/30">
+                    <p className="text-white/80 text-center italic text-lg leading-relaxed">
+                      &ldquo;Nuestra visión es ser el grupo empresarial de referencia en turismo de aventura en Centroamérica, ofreciendo experiencias seguras e inolvidables.&rdquo;
+                    </p>
+                    <p className="text-[#E6BE4D] font-bold text-center mt-4">— Gabriel Orozco, Fundador</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
