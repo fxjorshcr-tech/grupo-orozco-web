@@ -226,25 +226,132 @@ export default function Home() {
             <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
               Agencias de <span className="text-[#E6BE4D]">Viajes</span>
             </h2>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Experiencias turísticas únicas para descubrir lo mejor de Costa Rica
+            <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+              Tres agencias especializadas que cubren todas las necesidades del turista: desde aventuras extremas hasta experiencias culturales auténticas. Con más de 15 años de experiencia combinada, garantizamos viajes inolvidables.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10">
-            {[
-              { nombre: "CR Doing", logo: SUPABASE_IMAGES.crDoing, desc: "Tours y experiencias personalizadas" },
-              { nombre: "CR Paradise", logo: SUPABASE_IMAGES.crParadise, desc: "Tu paraíso costarricense" },
-              { nombre: "GTT Tours", logo: SUPABASE_IMAGES.gttTours, desc: "Tours guiados de calidad premium" }
-            ].map((agencia, i) => (
-              <div key={i} className="group">
-                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C9A227]/20 p-10">
-                  <div className="relative h-44 w-full bg-white rounded-2xl shadow-xl mb-8">
-                    <Image src={agencia.logo} alt={agencia.nombre} fill className="object-contain p-6" />
-                  </div>
-                  <h3 className="text-2xl font-black text-white mb-3 text-center">{agencia.nombre}</h3>
-                  <p className="text-white/50 text-center text-lg">{agencia.desc}</p>
+          <div className="grid lg:grid-cols-3 gap-10">
+            {/* CR DOING */}
+            <div className="group">
+              <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C9A227]/20 p-10">
+                <div className="relative h-52 w-full bg-white rounded-2xl shadow-xl mb-8">
+                  <Image src={SUPABASE_IMAGES.crDoing} alt="CR Doing" fill className="object-contain p-6" />
                 </div>
+                <h3 className="text-3xl font-black text-white mb-4 text-center">CR Doing</h3>
+                <p className="text-white/70 text-center text-lg mb-6 leading-relaxed">
+                  Agencia especializada en tours de aventura y experiencias personalizadas para grupos pequeños y familias.
+                </p>
+                <div className="space-y-3 mb-8">
+                  <h4 className="text-[#E6BE4D] font-bold text-sm uppercase tracking-wider">Servicios Destacados</h4>
+                  <ul className="space-y-2">
+                    {['Tours de aventura extrema', 'Caminatas en volcanes', 'Rafting y kayak', 'Tours nocturnos', 'Experiencias gastronómicas'].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-white/60">
+                        <svg className="w-5 h-5 text-[#E6BE4D] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="flex items-center justify-between pt-6 border-t border-white/10">
+                  <div>
+                    <p className="text-white/40 text-sm">Desde</p>
+                    <p className="text-[#E6BE4D] font-black text-2xl">$45 USD</p>
+                  </div>
+                  <a href="#contacto" className="px-6 py-3 bg-[#C9A227]/20 hover:bg-[#C9A227]/40 text-[#E6BE4D] font-bold rounded-xl transition-all">
+                    Consultar
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* CR PARADISE */}
+            <div className="group">
+              <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C9A227]/20 p-10">
+                <div className="absolute top-6 right-6 px-4 py-2 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 text-sm font-black rounded-full">
+                  MÁS POPULAR
+                </div>
+                <div className="relative h-52 w-full bg-white rounded-2xl shadow-xl mb-8">
+                  <Image src={SUPABASE_IMAGES.crParadise} alt="CR Paradise" fill className="object-contain p-6" />
+                </div>
+                <h3 className="text-3xl font-black text-white mb-4 text-center">CR Paradise</h3>
+                <p className="text-white/70 text-center text-lg mb-6 leading-relaxed">
+                  Tu conexión directa con el paraíso costarricense. Paquetes completos que incluyen hospedaje, transporte y actividades.
+                </p>
+                <div className="space-y-3 mb-8">
+                  <h4 className="text-[#E6BE4D] font-bold text-sm uppercase tracking-wider">Servicios Destacados</h4>
+                  <ul className="space-y-2">
+                    {['Paquetes todo incluido', 'Hoteles seleccionados', 'Transporte privado', 'Guías bilingües', 'Asistencia 24/7'].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-white/60">
+                        <svg className="w-5 h-5 text-[#E6BE4D] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="flex items-center justify-between pt-6 border-t border-white/10">
+                  <div>
+                    <p className="text-white/40 text-sm">Desde</p>
+                    <p className="text-[#E6BE4D] font-black text-2xl">$199 USD</p>
+                  </div>
+                  <a href="#contacto" className="px-6 py-3 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 font-bold rounded-xl transition-all hover:scale-105">
+                    Reservar
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* GTT TOURS */}
+            <div className="group">
+              <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C9A227]/20 p-10">
+                <div className="relative h-52 w-full bg-white rounded-2xl shadow-xl mb-8">
+                  <Image src={SUPABASE_IMAGES.gttTours} alt="GTT Tours" fill className="object-contain p-6" />
+                </div>
+                <h3 className="text-3xl font-black text-white mb-4 text-center">GTT Tours</h3>
+                <p className="text-white/70 text-center text-lg mb-6 leading-relaxed">
+                  Guanacaste Top Tours - Especialistas en la zona de Guanacaste con tours premium y experiencias exclusivas.
+                </p>
+                <div className="space-y-3 mb-8">
+                  <h4 className="text-[#E6BE4D] font-bold text-sm uppercase tracking-wider">Servicios Destacados</h4>
+                  <ul className="space-y-2">
+                    {['Tours en Guanacaste', 'Playas paradisíacas', 'Snorkeling y buceo', 'Avistamiento de fauna', 'Tours en catamarán'].map((item, i) => (
+                      <li key={i} className="flex items-center gap-3 text-white/60">
+                        <svg className="w-5 h-5 text-[#E6BE4D] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        </svg>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="flex items-center justify-between pt-6 border-t border-white/10">
+                  <div>
+                    <p className="text-white/40 text-sm">Desde</p>
+                    <p className="text-[#E6BE4D] font-black text-2xl">$65 USD</p>
+                  </div>
+                  <a href="#contacto" className="px-6 py-3 bg-[#C9A227]/20 hover:bg-[#C9A227]/40 text-[#E6BE4D] font-bold rounded-xl transition-all">
+                    Consultar
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats de agencias */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-20">
+            {[
+              { value: "+5,000", label: "Clientes Satisfechos" },
+              { value: "15+", label: "Años de Experiencia" },
+              { value: "50+", label: "Destinos Disponibles" },
+              { value: "4.9/5", label: "Calificación Promedio" }
+            ].map((stat, i) => (
+              <div key={i} className="text-center p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
+                <div className="text-4xl md:text-5xl font-black text-[#E6BE4D] mb-2">{stat.value}</div>
+                <div className="text-white/60 font-medium">{stat.label}</div>
               </div>
             ))}
           </div>
@@ -261,66 +368,233 @@ export default function Home() {
             <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
               Más <span className="text-[#E6BE4D]">Servicios</span>
             </h2>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Un portafolio diversificado que complementa nuestra oferta turística
+            <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+              Un portafolio diversificado que complementa nuestra oferta turística. Cada empresa está diseñada para ofrecer soluciones integrales en su área de especialización.
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-10">
-            {/* TRANSPORTE */}
-            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 p-10">
-              <div className="bg-gradient-to-br from-[#996515] to-[#E6BE4D] w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
-                <svg className="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 17h8M8 17a2 2 0 11-4 0 2 2 0 014 0zm8 0a2 2 0 104 0 2 2 0 00-4 0zm-8 0H5a2 2 0 01-2-2V6a2 2 0 012-2h9l5 5v6a2 2 0 01-2 2h-1" />
-                </svg>
-              </div>
-              <h3 className="text-3xl font-black text-white mb-4">Transporte</h3>
-              <p className="text-white/60 mb-8 text-lg leading-relaxed">
-                Soluciones de transporte turístico confiables y cómodas para todos los destinos de Costa Rica.
-              </p>
-              <div className="relative h-36 bg-white rounded-2xl shadow-xl">
-                <Image src={SUPABASE_IMAGES.cantWaitTravel} alt="Can't Wait Travel" fill className="object-contain p-4" />
-              </div>
-              <p className="text-[#E6BE4D] font-black text-xl mt-6 text-center">Can&apos;t Wait Travel</p>
-            </div>
+          {/* TRANSPORTE - Sección completa */}
+          <div className="mb-20">
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 p-10 lg:p-16">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                  <div className="bg-gradient-to-br from-[#996515] to-[#E6BE4D] w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
+                    <svg className="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 17h8M8 17a2 2 0 11-4 0 2 2 0 014 0zm8 0a2 2 0 104 0 2 2 0 00-4 0zm-8 0H5a2 2 0 01-2-2V6a2 2 0 012-2h9l5 5v6a2 2 0 01-2 2h-1" />
+                    </svg>
+                  </div>
+                  <h3 className="text-4xl font-black text-white mb-6">Transporte Turístico</h3>
+                  <p className="text-white/70 text-xl mb-8 leading-relaxed">
+                    Can&apos;t Wait Travel ofrece servicios de transporte privado y compartido para turistas que desean explorar Costa Rica con comodidad y seguridad. Conectamos todos los destinos principales del país.
+                  </p>
 
-            {/* TECNOLOGÍA */}
-            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 p-10">
-              <div className="bg-gradient-to-br from-[#996515] to-[#E6BE4D] w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
-                <svg className="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-              </div>
-              <h3 className="text-3xl font-black text-white mb-4">Tecnología</h3>
-              <p className="text-white/60 mb-8 text-lg leading-relaxed">
-                Soluciones digitales innovadoras para optimizar operaciones turísticas.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="relative h-28 bg-white rounded-xl shadow-xl">
-                  <Image src={SUPABASE_IMAGES.maxDigital} alt="MaxDigital" fill className="object-contain p-4" />
-                </div>
-                <div className="relative h-28 bg-white rounded-xl shadow-xl">
-                  <Image src={SUPABASE_IMAGES.ruby} alt="Ruby" fill className="object-contain p-4" />
-                </div>
-              </div>
-              <p className="text-[#E6BE4D] font-black text-xl mt-6 text-center">MaxDigital & Ruby</p>
-            </div>
+                  <div className="grid sm:grid-cols-2 gap-6 mb-8">
+                    <div className="space-y-4">
+                      <h4 className="text-[#E6BE4D] font-bold uppercase tracking-wider">Servicios</h4>
+                      <ul className="space-y-3">
+                        {['Traslados aeropuerto', 'Transporte privado', 'Shuttle compartido', 'Tours con transporte'].map((item, i) => (
+                          <li key={i} className="flex items-center gap-3 text-white/60">
+                            <svg className="w-5 h-5 text-[#E6BE4D] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="text-[#E6BE4D] font-bold uppercase tracking-wider">Destinos</h4>
+                      <ul className="space-y-3">
+                        {['La Fortuna / Arenal', 'Manuel Antonio', 'Guanacaste', 'Monteverde'].map((item, i) => (
+                          <li key={i} className="flex items-center gap-3 text-white/60">
+                            <svg className="w-5 h-5 text-[#E6BE4D] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                            </svg>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
 
-            {/* CONSTRUCCIÓN */}
-            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 p-10">
-              <div className="bg-gradient-to-br from-[#996515] to-[#E6BE4D] w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
-                <svg className="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
+                  <div className="flex flex-wrap gap-4">
+                    <a href="#contacto" className="px-8 py-4 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 font-bold rounded-xl transition-all hover:scale-105">
+                      Solicitar Cotización
+                    </a>
+                    <div className="px-6 py-4 bg-white/10 rounded-xl">
+                      <p className="text-white/40 text-sm">Flota de</p>
+                      <p className="text-[#E6BE4D] font-black text-xl">+15 Vehículos</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <div className="relative h-64 bg-white rounded-2xl shadow-2xl">
+                    <Image src={SUPABASE_IMAGES.cantWaitTravel} alt="Can't Wait Travel" fill className="object-contain p-8" />
+                  </div>
+                  <div className="grid grid-cols-3 gap-4 mt-6">
+                    {[
+                      { value: "24/7", label: "Disponibilidad" },
+                      { value: "100%", label: "Puntualidad" },
+                      { value: "A/C", label: "Climatizado" }
+                    ].map((stat, i) => (
+                      <div key={i} className="text-center p-4 bg-white/5 rounded-xl">
+                        <div className="text-2xl font-black text-[#E6BE4D]">{stat.value}</div>
+                        <div className="text-white/50 text-sm">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <h3 className="text-3xl font-black text-white mb-4">Construcción de Parques</h3>
-              <p className="text-white/60 mb-8 text-lg leading-relaxed">
-                Diseño, construcción y certificación de canopys con los más altos estándares.
-              </p>
-              <div className="relative h-36 bg-white rounded-2xl shadow-xl">
-                <Image src={SUPABASE_IMAGES.adventuresDesigner} alt="Adventures Designer" fill className="object-contain p-4" />
+            </div>
+          </div>
+
+          {/* TECNOLOGÍA - Sección completa */}
+          <div className="mb-20">
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 p-10 lg:p-16">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div className="order-2 lg:order-1">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="space-y-6">
+                      <div className="relative h-44 bg-white rounded-2xl shadow-2xl">
+                        <Image src={SUPABASE_IMAGES.maxDigital} alt="MaxDigital" fill className="object-contain p-6" />
+                      </div>
+                      <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
+                        <h5 className="text-white font-bold mb-2">MaxDigital</h5>
+                        <p className="text-white/50 text-sm">Desarrollo web y apps móviles</p>
+                      </div>
+                    </div>
+                    <div className="space-y-6 mt-8">
+                      <div className="relative h-44 bg-white rounded-2xl shadow-2xl">
+                        <Image src={SUPABASE_IMAGES.ruby} alt="Ruby" fill className="object-contain p-6" />
+                      </div>
+                      <div className="text-center p-6 bg-white/5 rounded-xl border border-white/10">
+                        <h5 className="text-white font-bold mb-2">Ruby</h5>
+                        <p className="text-white/50 text-sm">Sistemas de gestión turística</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="order-1 lg:order-2">
+                  <div className="bg-gradient-to-br from-[#996515] to-[#E6BE4D] w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
+                    <svg className="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                  </div>
+                  <h3 className="text-4xl font-black text-white mb-6">Tecnología e Innovación</h3>
+                  <p className="text-white/70 text-xl mb-8 leading-relaxed">
+                    Dos empresas tecnológicas que desarrollan soluciones digitales para el sector turístico: desde sistemas de reservas hasta aplicaciones móviles y plataformas de gestión empresarial.
+                  </p>
+
+                  <div className="space-y-4 mb-8">
+                    <h4 className="text-[#E6BE4D] font-bold uppercase tracking-wider">Soluciones que Ofrecemos</h4>
+                    <ul className="space-y-3">
+                      {[
+                        'Sistemas de reservas online',
+                        'Aplicaciones móviles para parques',
+                        'Plataformas de gestión de tours',
+                        'Integración con pasarelas de pago',
+                        'Dashboards de análisis de datos',
+                        'Sitios web optimizados para turismo'
+                      ].map((item, i) => (
+                        <li key={i} className="flex items-center gap-3 text-white/60">
+                          <svg className="w-5 h-5 text-[#E6BE4D] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          </svg>
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4">
+                    {[
+                      { value: "+30", label: "Proyectos" },
+                      { value: "99.9%", label: "Uptime" },
+                      { value: "5", label: "Países" }
+                    ].map((stat, i) => (
+                      <div key={i} className="text-center p-4 bg-white/5 rounded-xl">
+                        <div className="text-2xl font-black text-[#E6BE4D]">{stat.value}</div>
+                        <div className="text-white/50 text-sm">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
-              <p className="text-[#E6BE4D] font-black text-xl mt-6 text-center">Adventures Designer</p>
+            </div>
+          </div>
+
+          {/* CONSTRUCCIÓN - Sección completa */}
+          <div>
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 p-10 lg:p-16">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                  <div className="bg-gradient-to-br from-[#996515] to-[#E6BE4D] w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
+                    <svg className="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  </div>
+                  <h3 className="text-4xl font-black text-white mb-6">Construcción de Parques de Aventura</h3>
+                  <p className="text-white/70 text-xl mb-8 leading-relaxed">
+                    Adventures Designer es nuestra división especializada en diseño, construcción, instalación y certificación de parques de aventura y canopy tours. Cumplimos con los más altos estándares internacionales de seguridad.
+                  </p>
+
+                  <div className="grid sm:grid-cols-2 gap-6 mb-8">
+                    <div className="space-y-4">
+                      <h4 className="text-[#E6BE4D] font-bold uppercase tracking-wider">Servicios</h4>
+                      <ul className="space-y-3">
+                        {['Diseño de canopy tours', 'Construcción de plataformas', 'Instalación de cables', 'Certificación ACCT'].map((item, i) => (
+                          <li key={i} className="flex items-center gap-3 text-white/60">
+                            <svg className="w-5 h-5 text-[#E6BE4D] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="space-y-4">
+                      <h4 className="text-[#E6BE4D] font-bold uppercase tracking-wider">Certificaciones</h4>
+                      <ul className="space-y-3">
+                        {['ACCT (Asociación)', 'ASTM F24', 'EN 15567-1', 'ISO 9001'].map((item, i) => (
+                          <li key={i} className="flex items-center gap-3 text-white/60">
+                            <svg className="w-5 h-5 text-[#E6BE4D] flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                            </svg>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-wrap gap-4">
+                    <a href="#contacto" className="px-8 py-4 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 font-bold rounded-xl transition-all hover:scale-105">
+                      Solicitar Proyecto
+                    </a>
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <div className="relative h-72 bg-white rounded-2xl shadow-2xl">
+                    <Image src={SUPABASE_IMAGES.adventuresDesigner} alt="Adventures Designer" fill className="object-contain p-8" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 mt-6">
+                    {[
+                      { value: "+20", label: "Parques Construidos" },
+                      { value: "100%", label: "Seguridad Garantizada" },
+                      { value: "5", label: "Países" },
+                      { value: "24/7", label: "Soporte Técnico" }
+                    ].map((stat, i) => (
+                      <div key={i} className="text-center p-4 bg-white/5 rounded-xl">
+                        <div className="text-2xl font-black text-[#E6BE4D]">{stat.value}</div>
+                        <div className="text-white/50 text-sm">{stat.label}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
