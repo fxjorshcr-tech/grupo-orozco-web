@@ -1,9 +1,12 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Solo crear el cliente si las variables están definidas
+export const supabase: SupabaseClient | null = supabaseUrl && supabaseAnonKey
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null;
 
 // Tipos para la tabla vendors
 export interface Vendor {
@@ -23,6 +26,8 @@ export interface Vendor {
 
 // Función para autenticar vendor
 export async function authenticateVendor(usuario: string, password: string): Promise<Vendor | null> {
+  if (!supabase) return null;
+
   const { data, error } = await supabase
     .from('vendors')
     .select('*')
@@ -40,6 +45,8 @@ export async function authenticateVendor(usuario: string, password: string): Pro
 
 // Función para obtener vendor por ID
 export async function getVendorById(id: string): Promise<Vendor | null> {
+  if (!supabase) return null;
+
   const { data, error } = await supabase
     .from('vendors')
     .select('*')
