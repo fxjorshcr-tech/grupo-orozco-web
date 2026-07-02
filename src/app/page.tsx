@@ -57,7 +57,11 @@ export default function Home() {
     { nombre: "Ecoglide Arenal Park", ubicacion: "La Fortuna, San Carlos", foto: SUPABASE_IMAGES.oficinaEcoglide, activa: true },
     { nombre: "Skyline Canopy Tour", ubicacion: "Santa Cruz, Guanacaste", foto: SUPABASE_IMAGES.oficinaSkyline, activa: true },
     { nombre: "Arenal Mundo Aventura", ubicacion: "La Fortuna, San Carlos", foto: SUPABASE_IMAGES.oficinaAMA, activa: true },
-    { nombre: "Poás Adventure Park", ubicacion: "Poás, Alajuela", foto: null, activa: false, proximamente: true }
+    { nombre: "Poás Adventure Park", ubicacion: "Poás, Alajuela", foto: null, activa: false, proximamente: true },
+    { nombre: "Black Stallion Park", ubicacion: "Tamarindo, Guanacaste", foto: null, activa: false, proximamente: true },
+    { nombre: "Attica Canopy Tour", ubicacion: "La Fortuna, San Carlos", foto: null, activa: false, proximamente: true },
+    { nombre: "Brisas de la Jungla", ubicacion: "Limón", foto: null, activa: false, proximamente: true },
+    { nombre: "Four Seasons Adventure Park", ubicacion: "Papagayo, Guanacaste", foto: null, activa: false, proximamente: true }
   ];
 
   return (
@@ -109,11 +113,11 @@ export default function Home() {
           </h1>
 
           <p className="text-2xl md:text-3xl text-white/80 mb-6 font-medium max-w-4xl mx-auto leading-relaxed">
-            Administradores expertos de parques de aventura con <span className="text-[#E6BE4D] font-bold">cobertura total</span> en Costa Rica
+            Administramos parques de aventura en Costa Rica: <span className="text-[#E6BE4D] font-bold">operación, seguridad y experiencia del visitante</span>
           </p>
 
           <p className="text-xl text-white/60 mb-8 max-w-3xl mx-auto">
-            Más de 20 años garantizando excelencia operativa, seguridad certificada y experiencias inolvidables
+            Más de 20 años operando canopy y parques de aventura. Un grupo de capital costarricense que reúne turismo, tecnología, transporte y construcción bajo una misma dirección.
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 mb-12">
@@ -138,6 +142,108 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ==================== EXPERTOS EN ADMINISTRACIÓN ==================== */}
+      <section id="nosotros" className="relative z-10 py-32 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
+                QUIÉNES SOMOS
+              </span>
+              <h2 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">
+                Expertos en administrar <span className="text-[#E6BE4D]">parques de aventura</span>
+              </h2>
+              <p className="text-lg text-white/70 mb-6 leading-relaxed">
+                Administrar un parque de aventura no es solo abrir sus puertas cada día. Es coordinar la operación completa: la seguridad de cada línea, el mantenimiento del equipo, la formación del personal y la atención de cada visitante que llega buscando una experiencia bien hecha.
+              </p>
+              <p className="text-lg text-white/70 leading-relaxed">
+                En Grupo Oroz llevamos más de 20 años haciendo exactamente eso. Conocemos el negocio desde adentro porque operamos nuestros propios parques y acompañamos a otros en el camino.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-6">
+              {[
+                { titulo: "Operación diaria", desc: "Gestión completa de la operación, el personal y los horarios de cada parque." },
+                { titulo: "Seguridad certificada", desc: "Estándares ACCT, inspección de líneas y protocolos revisados de forma constante." },
+                { titulo: "Mantenimiento", desc: "Revisión y mantenimiento continuo de cables, plataformas y equipo de protección." },
+                { titulo: "Experiencia del visitante", desc: "Atención cuidada de principio a fin, desde la reserva hasta el último tour." }
+              ].map((pilar, i) => (
+                <div key={i} className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-7 hover:border-[#C9A227]/50 transition-all duration-300">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#996515] to-[#E6BE4D] rounded-xl flex items-center justify-center mb-5">
+                    <span className="text-slate-950 font-black text-lg">{i + 1}</span>
+                  </div>
+                  <h3 className="text-xl font-black text-white mb-2">{pilar.titulo}</h3>
+                  <p className="text-white/60 leading-relaxed">{pilar.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ==================== TRABAJO INTEGRAL (ECOSISTEMA) ==================== */}
+      <section id="grupo" className="relative z-10 py-32 px-4 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#C9A227]/5 via-transparent to-[#C9A227]/5" />
+        <div className="relative max-w-7xl mx-auto">
+          <div className="text-center mb-20">
+            <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
+              TRABAJO INTEGRAL
+            </span>
+            <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+              Un grupo que <span className="text-[#E6BE4D]">se apoya a sí mismo</span>
+            </h2>
+            <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
+              Cada empresa del grupo cubre un área distinta y todas trabajan conectadas. Lo que produce una fortalece a la siguiente, y el parque siempre está en el centro.
+            </p>
+          </div>
+
+          {/* Diagrama de ecosistema */}
+          <div className="grid lg:grid-cols-5 gap-6 items-stretch">
+            {[
+              { area: "Parques", desc: "El corazón del grupo: canopy y parques de aventura en operación." },
+              { area: "Fotografía y video", desc: "OrostudiosCR captura la experiencia y genera contenido para cada parque." },
+              { area: "Transporte", desc: "Can't Wait Travel traslada a los visitantes hacia cada destino." },
+              { area: "Tecnología", desc: "MaxDigital y Ruby gestionan reservas, pagos y operación digital." },
+              { area: "Construcción", desc: "Adventures Designer diseña y construye los nuevos parques." }
+            ].map((item, i) => (
+              <div key={i} className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl border-2 border-white/10 p-7 flex flex-col hover:border-[#C9A227]/50 hover:-translate-y-2 transition-all duration-300">
+                {i === 0 && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 text-xs font-black rounded-full whitespace-nowrap">
+                    EJE CENTRAL
+                  </span>
+                )}
+                <h3 className="text-xl font-black text-[#E6BE4D] mb-3">{item.area}</h3>
+                <p className="text-white/60 leading-relaxed text-sm">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-white/50 max-w-3xl mx-auto mt-16 text-lg leading-relaxed">
+            Al tener todas las áreas dentro del mismo grupo, no dependemos de terceros: controlamos la calidad de punta a punta y cada empresa aporta al resultado final del visitante.
+          </p>
+        </div>
+      </section>
+
+      {/* ==================== CAPITAL COSTARRICENSE ==================== */}
+      <section className="relative z-10 py-28 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="relative bg-gradient-to-br from-[#C9A227]/15 to-white/5 backdrop-blur-xl rounded-[2.5rem] border-2 border-[#C9A227]/30 p-12 md:p-16 text-center overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#E6BE4D]/10 rounded-full blur-3xl" />
+            <div className="relative">
+              <span className="inline-flex items-center gap-2 px-5 py-2 bg-[#C9A227]/20 border border-[#C9A227]/40 rounded-full text-[#E6BE4D] font-black text-sm tracking-wider mb-8">
+                🇨🇷 HECHO EN COSTA RICA
+              </span>
+              <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
+                Capital <span className="text-[#E6BE4D]">100% costarricense</span>
+              </h2>
+              <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
+                Grupo Oroz es una empresa de capital costarricense, con raíces locales y equipos formados en el país. Generamos empleo en las comunidades donde operamos y reinvertimos en el turismo de Costa Rica. Lo que construimos, lo construimos aquí.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ==================== PARQUES DE AVENTURA ==================== */}
       <section id="parques" className="relative z-10 py-40 px-4 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
@@ -154,7 +260,7 @@ export default function Home() {
               Parques de <span className="text-[#E6BE4D]">Aventura</span>
             </h2>
             <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-              Líderes en gestión integral con <span className="text-[#E6BE4D] font-bold">cobertura total</span>: operaciones, seguridad ACCT, mantenimiento 24/7 y experiencia al cliente de clase mundial.
+              Los parques que operamos y administramos directamente en Costa Rica, cada uno con estándares de seguridad ACCT y mantenimiento constante.
             </p>
           </div>
 
@@ -227,15 +333,15 @@ export default function Home() {
               Agencias de <span className="text-[#E6BE4D]">Viajes</span>
             </h2>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Experiencias turísticas únicas para descubrir lo mejor de Costa Rica
+              Nuestras agencias arman los recorridos y conectan a los viajeros con cada destino de Costa Rica.
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-10">
             {[
-              { nombre: "CR Doing", logo: SUPABASE_IMAGES.crDoing, desc: "Tours y experiencias personalizadas" },
-              { nombre: "CR Paradise", logo: SUPABASE_IMAGES.crParadise, desc: "Tu paraíso costarricense" },
-              { nombre: "GTT Tours", logo: SUPABASE_IMAGES.gttTours, desc: "Tours guiados de calidad premium" }
+              { nombre: "CR Doing", logo: SUPABASE_IMAGES.crDoing, desc: "Tours a la medida de cada viajero" },
+              { nombre: "CR Paradise", logo: SUPABASE_IMAGES.crParadise, desc: "Paquetes y experiencias por todo el país" },
+              { nombre: "GTT Tours", logo: SUPABASE_IMAGES.gttTours, desc: "Tours guiados con acompañamiento local" }
             ].map((agencia, i) => (
               <div key={i} className="group">
                 <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C9A227]/20 p-10">
@@ -262,7 +368,7 @@ export default function Home() {
               Más <span className="text-[#E6BE4D]">Servicios</span>
             </h2>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Un portafolio diversificado que complementa nuestra oferta turística
+              Las empresas de transporte, tecnología y construcción que sostienen la operación del grupo.
             </p>
           </div>
 
@@ -276,7 +382,7 @@ export default function Home() {
               </div>
               <h3 className="text-3xl font-black text-white mb-4">Transporte</h3>
               <p className="text-white/60 mb-8 text-lg leading-relaxed">
-                Soluciones de transporte turístico confiables y cómodas para todos los destinos de Costa Rica.
+                Transporte turístico para trasladar a los visitantes hacia cada parque y destino del país.
               </p>
               <div className="relative h-36 bg-white rounded-2xl shadow-xl">
                 <Image src={SUPABASE_IMAGES.cantWaitTravel} alt="Can't Wait Travel" fill className="object-contain p-4" />
@@ -293,7 +399,7 @@ export default function Home() {
               </div>
               <h3 className="text-3xl font-black text-white mb-4">Tecnología</h3>
               <p className="text-white/60 mb-8 text-lg leading-relaxed">
-                Soluciones digitales innovadoras para optimizar operaciones turísticas.
+                Plataformas de reservas, pagos y gestión que mantienen la operación funcionando cada día.
               </p>
               <div className="grid grid-cols-2 gap-4">
                 <div className="relative h-28 bg-white rounded-xl shadow-xl">
@@ -315,7 +421,7 @@ export default function Home() {
               </div>
               <h3 className="text-3xl font-black text-white mb-4">Construcción de Parques</h3>
               <p className="text-white/60 mb-8 text-lg leading-relaxed">
-                Diseño, construcción y certificación de canopys con los más altos estándares.
+                Diseño, construcción y certificación de canopy, desde la primera línea hasta la apertura del parque.
               </p>
               <div className="relative h-36 bg-white rounded-2xl shadow-xl">
                 <Image src={SUPABASE_IMAGES.adventuresDesigner} alt="Adventures Designer" fill className="object-contain p-4" />
@@ -344,7 +450,7 @@ export default function Home() {
                 Orostudios<span className="text-[#E6BE4D]">CR</span>
               </h2>
               <p className="text-xl text-white/60 mb-10 leading-relaxed">
-                Con más de 20 años de experiencia, somos la rama especializada en fotografía y video para parques de aventura. Hemos trabajado con más de 18 parques en Costa Rica.
+                Es la rama del grupo dedicada a fotografía y video en parques de aventura. En más de 20 años ha trabajado con más de 18 parques en Costa Rica, capturando la experiencia de cada visitante y generando el contenido de cada marca.
               </p>
 
               <div className="grid grid-cols-3 gap-6 mb-10">
@@ -380,7 +486,8 @@ export default function Home() {
 
           {/* Oficinas */}
           <div>
-            <h3 className="text-3xl md:text-4xl font-black text-white text-center mb-12">Oficinas Activas</h3>
+            <h3 className="text-3xl md:text-4xl font-black text-white text-center mb-4">Nuestras Oficinas</h3>
+            <p className="text-white/50 text-center max-w-2xl mx-auto mb-12">Presencia actual de OrostudiosCR y las próximas aperturas en el país.</p>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {oficinasOrostudios.map((oficina, index) => (
                 <div key={index}
@@ -422,7 +529,7 @@ export default function Home() {
                 <Image src={SUPABASE_IMAGES.mainLogo} alt="Grupo Oroz CR" fill className="object-contain" />
               </div>
               <p className="text-white/50 mb-6 leading-relaxed">
-                Administradores expertos de parques de aventura con cobertura total en Costa Rica.
+                Grupo de capital costarricense dedicado a operar y administrar parques de aventura en Costa Rica.
               </p>
               <p className="text-white/70 font-bold">gabrielorozco@grupooroz.com</p>
               <p className="text-[#E6BE4D] font-black text-xl">+506 6098 2244</p>
@@ -454,7 +561,7 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t border-white/10 pt-8 text-center text-white/40">
-            <p>&copy; 2025 Grupo Oroz CR. Todos los derechos reservados.</p>
+            <p>&copy; 2026 Grupo Oroz CR. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
