@@ -182,45 +182,53 @@ export default function Home() {
       </section>
 
       {/* ==================== TRABAJO INTEGRAL (ECOSISTEMA) ==================== */}
-      <section id="grupo" className="relative z-10 py-32 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#C9A227]/5 via-transparent to-[#C9A227]/5" />
-        <div className="relative max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
-              TRABAJO INTEGRAL
-            </span>
-            <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
-              Un grupo que <span className="text-[#E6BE4D]">se apoya a sí mismo</span>
-            </h2>
-            <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-              Cada empresa del grupo cubre un área distinta y todas trabajan conectadas. Lo que produce una fortalece a la siguiente, y el parque siempre está en el centro.
+      <section id="grupo" className="relative z-10 py-32 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-slate-950/85 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-2xl p-8 md:p-16">
+            <div className="text-center max-w-3xl mx-auto mb-14">
+              <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
+                TRABAJO INTEGRAL
+              </span>
+              <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
+                Todo lo que un parque necesita, <span className="text-[#E6BE4D]">bajo un mismo techo</span>
+              </h2>
+              <p className="text-lg md:text-xl text-white/70 leading-relaxed">
+                Operamos parques de aventura, pero también nos encargamos de lo que gira alrededor de ellos: la fotografía, el transporte, las reservas y hasta la construcción de los parques nuevos. Al tenerlo todo dentro del grupo, no dependemos de nadie más.
+              </p>
+            </div>
+
+            {/* Eje central + áreas de apoyo */}
+            <div className="grid lg:grid-cols-3 gap-6 items-stretch mb-8">
+              {/* Parques — eje */}
+              <div className="lg:row-span-2 bg-gradient-to-br from-[#996515] via-[#C9A227] to-[#E6BE4D] rounded-3xl p-8 flex flex-col justify-center text-center shadow-xl">
+                <span className="text-slate-950/70 text-xs font-black tracking-widest uppercase mb-3">El centro de todo</span>
+                <h3 className="text-3xl md:text-4xl font-black text-slate-950 mb-4">Los Parques</h3>
+                <p className="text-slate-950/80 leading-relaxed font-medium">
+                  Nuestros canopy y parques de aventura. Todo lo demás existe para que funcionen bien y para que el visitante se lleve una gran experiencia.
+                </p>
+              </div>
+
+              {/* Áreas de apoyo */}
+              {[
+                { area: "Fotografía y video", empresa: "OrostudiosCR", desc: "Fotografía y graba a los visitantes, y produce el contenido de cada parque." },
+                { area: "Transporte", empresa: "Can't Wait Travel", desc: "Lleva a los turistas hasta la entrada de cada parque, desde cualquier punto del país." },
+                { area: "Tecnología", empresa: "MaxDigital y Ruby", desc: "Manejan las reservas, los pagos y todo el día a día digital de la operación." },
+                { area: "Construcción", empresa: "Adventures Designer", desc: "Diseña y levanta los parques nuevos, línea por línea." }
+              ].map((item, i) => (
+                <div key={i} className="bg-white/[0.04] rounded-3xl border border-white/10 p-7 hover:border-[#C9A227]/50 hover:bg-white/[0.07] transition-all duration-300">
+                  <div className="flex items-baseline justify-between gap-3 mb-3">
+                    <h3 className="text-xl font-black text-white">{item.area}</h3>
+                    <span className="text-[#E6BE4D] text-sm font-bold whitespace-nowrap">{item.empresa}</span>
+                  </div>
+                  <p className="text-white/60 leading-relaxed">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-center text-white/50 max-w-2xl mx-auto text-lg leading-relaxed">
+              La ventaja de trabajar así es simple: la calidad la cuidamos nosotros, de principio a fin.
             </p>
           </div>
-
-          {/* Diagrama de ecosistema */}
-          <div className="grid lg:grid-cols-5 gap-6 items-stretch">
-            {[
-              { area: "Parques", desc: "El corazón del grupo: canopy y parques de aventura en operación." },
-              { area: "Fotografía y video", desc: "OrostudiosCR captura la experiencia y genera contenido para cada parque." },
-              { area: "Transporte", desc: "Can't Wait Travel traslada a los visitantes hacia cada destino." },
-              { area: "Tecnología", desc: "MaxDigital y Ruby gestionan reservas, pagos y operación digital." },
-              { area: "Construcción", desc: "Adventures Designer diseña y construye los nuevos parques." }
-            ].map((item, i) => (
-              <div key={i} className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl border-2 border-white/10 p-7 flex flex-col hover:border-[#C9A227]/50 hover:-translate-y-2 transition-all duration-300">
-                {i === 0 && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 text-xs font-black rounded-full whitespace-nowrap">
-                    EJE CENTRAL
-                  </span>
-                )}
-                <h3 className="text-xl font-black text-[#E6BE4D] mb-3">{item.area}</h3>
-                <p className="text-white/60 leading-relaxed text-sm">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-center text-white/50 max-w-3xl mx-auto mt-16 text-lg leading-relaxed">
-            Al tener todas las áreas dentro del mismo grupo, no dependemos de terceros: controlamos la calidad de punta a punta y cada empresa aporta al resultado final del visitante.
-          </p>
         </div>
       </section>
 
