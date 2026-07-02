@@ -102,41 +102,33 @@ export default function Home() {
 
       {/* ==================== HERO ==================== */}
       <section id="inicio" className="relative z-10 min-h-screen flex items-center justify-center px-4 pt-24">
-        <div className="text-center max-w-6xl mx-auto">
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-[#C9A227]/20 border border-[#C9A227]/40 rounded-full mb-10">
-            <span className="w-3 h-3 bg-[#E6BE4D] rounded-full animate-pulse" />
-            <span className="text-[#E6BE4D] text-base font-bold tracking-widest">COSTA RICA</span>
+        <div className="text-center max-w-5xl mx-auto animate-fade-in-up">
+          <div className="inline-flex items-center gap-2.5 px-5 py-2 bg-white/5 border border-white/15 rounded-full mb-10 backdrop-blur-sm">
+            <span className="w-2 h-2 bg-[#E6BE4D] rounded-full" />
+            <span className="text-white/80 text-xs font-sans font-semibold tracking-[0.2em] uppercase">Costa Rica</span>
           </div>
 
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-white mb-8 leading-none tracking-tight">
-            Grupo <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#C9A227] via-[#E6BE4D] to-[#FFD966]">Oroz</span> CR
+          <h1 className="text-6xl md:text-7xl lg:text-8xl font-medium text-white mb-8 leading-[0.95]">
+            Grupo <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#C9A227] via-[#E6BE4D] to-[#FFD966]">Oroz</span>
           </h1>
 
-          <p className="text-2xl md:text-3xl text-white/80 mb-6 font-medium max-w-4xl mx-auto leading-relaxed">
-            Administramos parques de aventura en Costa Rica: <span className="text-[#E6BE4D] font-bold">operación, seguridad y experiencia del visitante</span>
+          <p className="text-xl md:text-2xl font-sans font-light text-white/85 mb-6 max-w-3xl mx-auto leading-relaxed">
+            Operamos y administramos parques de aventura en Costa Rica. Nos ocupamos de todo lo que hay detrás: la seguridad, el mantenimiento, la gente y cada visitante que llega.
           </p>
 
-          <p className="text-xl text-white/60 mb-8 max-w-3xl mx-auto">
-            Más de 20 años operando canopy y parques de aventura. Un grupo de capital costarricense que reúne turismo, tecnología, transporte y construcción bajo una misma dirección.
+          <p className="text-base font-sans text-white/50 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Un grupo de capital costarricense que reúne parques, turismo, fotografía, transporte, tecnología y construcción.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {['Turismo', 'Tecnología', 'Transporte', 'Construcción'].map((item, i) => (
-              <span key={i} className="px-5 py-2 bg-[#C9A227]/10 border border-[#C9A227]/30 rounded-full text-[#E6BE4D] font-bold text-sm">
-                {item}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-5 justify-center">
-            <a href="#parques" className="bg-gradient-to-r from-[#996515] via-[#C9A227] to-[#E6BE4D] hover:shadow-xl hover:shadow-[#C9A227]/30 group inline-flex items-center justify-center gap-3 px-10 py-5 text-slate-950 font-black text-lg rounded-2xl transition-all duration-300 hover:scale-105">
-              Nuestros Parques
-              <svg className="w-6 h-6 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#parques" className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#E6BE4D] hover:bg-[#FFD966] text-slate-950 font-sans font-semibold rounded-full transition-all duration-300">
+              Ver nuestros parques
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
-            <a href="#agencias" className="px-10 py-5 bg-white/10 backdrop-blur-sm text-white font-bold text-lg rounded-2xl border-2 border-[#C9A227]/50 hover:bg-[#C9A227]/20 hover:border-[#C9A227] transition-all duration-300 hover:scale-105">
-              Ver Todos los Servicios
+            <a href="#grupo" className="px-8 py-4 font-sans font-medium text-white/90 rounded-full border border-white/25 hover:bg-white/5 hover:border-white/50 transition-all duration-300">
+              Conocer el grupo
             </a>
           </div>
         </div>
@@ -147,17 +139,17 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             <div>
-              <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
+              <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
                 QUIÉNES SOMOS
               </span>
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-8 leading-tight">
-                Expertos en administrar <span className="text-[#E6BE4D]">parques de aventura</span>
+              <h2 className="text-4xl md:text-5xl font-medium text-white mb-8 leading-[1.1]">
+                Sabemos lo que cuesta<br className="hidden md:block" /> mantener <span className="italic text-[#E6BE4D]">un parque en pie</span>
               </h2>
-              <p className="text-lg text-white/70 mb-6 leading-relaxed">
-                Administrar un parque de aventura no es solo abrir sus puertas cada día. Es coordinar la operación completa: la seguridad de cada línea, el mantenimiento del equipo, la formación del personal y la atención de cada visitante que llega buscando una experiencia bien hecha.
+              <p className="text-lg font-sans text-white/70 mb-6 leading-relaxed">
+                Un parque de aventura no se sostiene solo con abrir las puertas. Detrás hay líneas que revisar, equipo que mantener, gente que capacitar y cientos de visitantes que atender bien cada día.
               </p>
-              <p className="text-lg text-white/70 leading-relaxed">
-                En Grupo Oroz llevamos más de 20 años haciendo exactamente eso. Conocemos el negocio desde adentro porque operamos nuestros propios parques y acompañamos a otros en el camino.
+              <p className="text-lg font-sans text-white/70 leading-relaxed">
+                Llevamos más de 20 años en eso. Lo conocemos desde adentro porque operamos nuestros propios parques, y esa experiencia es la que ponemos a trabajar en cada proyecto del grupo.
               </p>
             </div>
 
@@ -186,11 +178,11 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <div className="bg-slate-950/85 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-2xl p-8 md:p-16">
             <div className="text-center max-w-3xl mx-auto mb-14">
-              <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
+              <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
                 TRABAJO INTEGRAL
               </span>
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-6 leading-tight">
-                Todo lo que un parque necesita, <span className="text-[#E6BE4D]">bajo un mismo techo</span>
+              <h2 className="text-4xl md:text-5xl font-medium text-white mb-6 leading-[1.1]">
+                Todo lo que un parque necesita, <span className="italic text-[#E6BE4D]">bajo un mismo techo</span>
               </h2>
               <p className="text-lg md:text-xl text-white/70 leading-relaxed">
                 Operamos parques de aventura, pero también nos encargamos de lo que gira alrededor de ellos: la fotografía, el transporte, las reservas y hasta la construcción de los parques nuevos. Al tenerlo todo dentro del grupo, no dependemos de nadie más.
@@ -241,8 +233,8 @@ export default function Home() {
               <span className="inline-flex items-center gap-2 px-5 py-2 bg-[#C9A227]/20 border border-[#C9A227]/40 rounded-full text-[#E6BE4D] font-black text-sm tracking-wider mb-8">
                 🇨🇷 HECHO EN COSTA RICA
               </span>
-              <h2 className="text-3xl md:text-5xl font-black text-white mb-6 leading-tight">
-                Capital <span className="text-[#E6BE4D]">100% costarricense</span>
+              <h2 className="text-3xl md:text-5xl font-medium text-white mb-6 leading-[1.1]">
+                Capital <span className="italic text-[#E6BE4D]">100% costarricense</span>
               </h2>
               <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
                 Grupo Oroz es una empresa de capital costarricense, con raíces locales y equipos formados en el país. Generamos empleo en las comunidades donde operamos y reinvertimos en el turismo de Costa Rica. Lo que construimos, lo construimos aquí.
@@ -253,7 +245,7 @@ export default function Home() {
       </section>
 
       {/* ==================== PARQUES DE AVENTURA ==================== */}
-      <section id="parques" className="relative z-10 py-40 px-4 overflow-hidden">
+      <section id="parques" className="relative z-10 py-28 px-4 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <ZiplineDecor className="absolute top-20 left-10 w-72 h-32 text-[#C9A227]/20 rotate-6" />
           <ZiplineDecor className="absolute bottom-32 right-16 w-64 h-28 text-[#E6BE4D]/20 -rotate-6" />
@@ -261,10 +253,10 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center mb-20">
-            <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
+            <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
               ADMINISTRACIÓN DE PARQUES
             </span>
-            <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
+            <h2 className="text-4xl md:text-6xl font-medium text-white mb-6">
               Parques de <span className="text-[#E6BE4D]">Aventura</span>
             </h2>
             <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
@@ -331,13 +323,13 @@ export default function Home() {
       </section>
 
       {/* ==================== AGENCIAS DE VIAJES ==================== */}
-      <section id="agencias" className="relative z-10 py-40 px-4">
+      <section id="agencias" className="relative z-10 py-28 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
+            <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
               TURISMO Y VIAJES
             </span>
-            <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
+            <h2 className="text-4xl md:text-6xl font-medium text-white mb-6">
               Agencias de <span className="text-[#E6BE4D]">Viajes</span>
             </h2>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
@@ -366,13 +358,13 @@ export default function Home() {
       </section>
 
       {/* ==================== SERVICIOS: TRANSPORTE, TECNOLOGÍA, CONSTRUCCIÓN ==================== */}
-      <section id="servicios" className="relative z-10 py-40 px-4">
+      <section id="servicios" className="relative z-10 py-28 px-4">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
-            <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
+            <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
               ECOSISTEMA EMPRESARIAL
             </span>
-            <h2 className="text-5xl md:text-7xl font-black text-white mb-6">
+            <h2 className="text-4xl md:text-6xl font-medium text-white mb-6">
               Más <span className="text-[#E6BE4D]">Servicios</span>
             </h2>
             <p className="text-xl text-white/60 max-w-2xl mx-auto">
@@ -441,7 +433,7 @@ export default function Home() {
       </section>
 
       {/* ==================== OROSTUDIOSCR ==================== */}
-      <section id="orostudios" className="relative z-10 py-40 px-4 overflow-hidden">
+      <section id="orostudios" className="relative z-10 py-28 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-[#C9A227]/5 via-transparent to-[#C9A227]/5" />
         <div className="absolute inset-0 pointer-events-none">
           <CameraDecor className="absolute top-20 left-12 w-40 h-40 text-[#C9A227]/20 rotate-12" />
@@ -451,10 +443,10 @@ export default function Home() {
         <div className="relative max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-20 items-center mb-24">
             <div>
-              <span className="bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 px-6 py-2 rounded-full text-sm font-black tracking-wider inline-block mb-6">
+              <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
                 CONTENIDO FOTOGRÁFICO
               </span>
-              <h2 className="text-5xl md:text-7xl font-black text-white mb-8">
+              <h2 className="text-4xl md:text-6xl font-medium text-white mb-8">
                 Orostudios<span className="text-[#E6BE4D]">CR</span>
               </h2>
               <p className="text-xl text-white/60 mb-10 leading-relaxed">
