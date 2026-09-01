@@ -2,10 +2,14 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { SUPABASE_IMAGES } from "@/lib/assets";
-import { NAV } from "@/lib/content";
 
-export default function SiteHeader() {
+import LanguageSwitcher from "./LanguageSwitcher";
+import { SUPABASE_IMAGES } from "@/lib/assets";
+import { NAV_IDS } from "@/lib/content";
+import type { Dictionary } from "@/lib/dictionaries";
+import { HOME_PATH, type Locale } from "@/lib/i18n";
+
+export default function SiteHeader({ lang, t }: { lang: Locale; t: Dictionary }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuAbierto, setMenuAbierto] = useState(false);
 
@@ -38,12 +42,12 @@ export default function SiteHeader() {
           : "border-b border-transparent"
       }`}
     >
-      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-5 sm:px-8">
+      <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
         {/* El logotipo protagoniza el hero; en la barra sólo aparece al hacer scroll. */}
         <a
-          href="#inicio"
-          aria-label="Grupo Oroz — inicio"
-          className={`relative h-10 w-32 transition-opacity duration-500 ${
+          href={`${HOME_PATH[lang]}#inicio`}
+          aria-label={t.a11y.inicio}
+          className={`relative h-10 w-32 shrink-0 transition-opacity duration-500 ${
             scrolled || menuAbierto ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
         >
@@ -56,45 +60,49 @@ export default function SiteHeader() {
           />
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
-          {NAV.map((item) => (
-            <li key={item.href}>
-              <a
-                href={item.href}
-                className="rounded-full px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:text-champagne"
-              >
-                {item.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="flex items-center gap-3">
+          <ul className="hidden items-center gap-1 md:flex">
+            {NAV_IDS.map((id) => (
+              <li key={id}>
+                <a
+                  href={`#${id}`}
+                  className="rounded-full px-4 py-2 text-sm font-medium text-white/70 transition-colors hover:text-champagne"
+                >
+                  {t.nav[id]}
+                </a>
+              </li>
+            ))}
+          </ul>
 
-        <button
-          type="button"
-          onClick={() => setMenuAbierto((v) => !v)}
-          aria-expanded={menuAbierto}
-          aria-controls="menu-movil"
-          aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white md:hidden"
-        >
-          <span className="relative block h-3.5 w-4">
-            <span
-              className={`absolute left-0 block h-px w-full bg-current transition-transform duration-300 ${
-                menuAbierto ? "top-1/2 rotate-45" : "top-0"
-              }`}
-            />
-            <span
-              className={`absolute left-0 top-1/2 block h-px w-full bg-current transition-opacity duration-200 ${
-                menuAbierto ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`absolute left-0 block h-px w-full bg-current transition-transform duration-300 ${
-                menuAbierto ? "top-1/2 -rotate-45" : "bottom-0"
-              }`}
-            />
-          </span>
-        </button>
+          <LanguageSwitcher lang={lang} etiqueta={t.a11y.cambiarIdioma} />
+
+          <button
+            type="button"
+            onClick={() => setMenuAbierto((v) => !v)}
+            aria-expanded={menuAbierto}
+            aria-controls="menu-movil"
+            aria-label={menuAbierto ? t.a11y.cerrarMenu : t.a11y.abrirMenu}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white md:hidden"
+          >
+            <span className="relative block h-3.5 w-4">
+              <span
+                className={`absolute left-0 block h-px w-full bg-current transition-transform duration-300 ${
+                  menuAbierto ? "top-1/2 rotate-45" : "top-0"
+                }`}
+              />
+              <span
+                className={`absolute left-0 top-1/2 block h-px w-full bg-current transition-opacity duration-200 ${
+                  menuAbierto ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <span
+                className={`absolute left-0 block h-px w-full bg-current transition-transform duration-300 ${
+                  menuAbierto ? "top-1/2 -rotate-45" : "bottom-0"
+                }`}
+              />
+            </span>
+          </button>
+        </div>
       </nav>
 
       <div
@@ -103,14 +111,14 @@ export default function SiteHeader() {
         className="border-t border-white/10 bg-ink/95 backdrop-blur-xl md:hidden"
       >
         <ul className="mx-auto max-w-7xl px-5 py-4">
-          {NAV.map((item) => (
-            <li key={item.href}>
+          {NAV_IDS.map((id) => (
+            <li key={id}>
               <a
-                href={item.href}
+                href={`#${id}`}
                 onClick={() => setMenuAbierto(false)}
                 className="block border-b border-white/5 py-4 text-lg text-white/80 transition-colors hover:text-champagne"
               >
-                {item.label}
+                {t.nav[id]}
               </a>
             </li>
           ))}

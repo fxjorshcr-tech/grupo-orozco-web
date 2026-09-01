@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import SiteHeader from "@/components/SiteHeader";
@@ -9,13 +10,18 @@ import {
   AGENCIAS,
   AREAS_APOYO,
   CONTACTO,
-  INDICADORES,
+  ENLACES_PARQUES,
+  ENLACES_SERVICIOS,
+  INDICADOR_IDS,
+  INDICADOR_VALORES,
   OFICINAS_ACTIVAS,
   OFICINAS_PROXIMAS,
-  OFICINA_BENEFICIOS,
+  OROSTUDIOS_METRICAS,
   PARQUES,
-  PILARES,
+  PILAR_IDS,
 } from "@/lib/content";
+import { getDictionary } from "@/lib/dictionaries";
+import type { Locale } from "@/lib/i18n";
 
 /* ---------- Iconos ---------- */
 
@@ -107,10 +113,12 @@ function Tarjeta({
 
 /* ---------- Página ---------- */
 
-export default function Home() {
+export default function HomePage({ lang }: { lang: Locale }) {
+  const t = getDictionary(lang);
+
   return (
     <>
-      <SiteHeader />
+      <SiteHeader lang={lang} t={t} />
 
       <main id="contenido" className="relative">
         {/* Fondo fijo */}
@@ -150,7 +158,7 @@ export default function Home() {
           </div>
 
           <div className="relative mx-auto w-full max-w-4xl text-center">
-            <p className="eyebrow mb-10 text-white/40">Costa Rica · desde 2004</p>
+            <p className="eyebrow mb-10 text-white/40">{t.hero.eyebrow}</p>
 
             {/* El logotipo es el titular */}
             <h1 className="mx-auto mb-10 w-full max-w-2xl">
@@ -169,12 +177,11 @@ export default function Home() {
             <div className="mx-auto mb-10 h-px w-24 rule-gold" aria-hidden="true" />
 
             <p className="mx-auto max-w-2xl font-display text-2xl leading-snug text-champagne sm:text-3xl text-balance">
-              Operamos y administramos parques de aventura en Costa Rica.
+              {t.hero.lema}
             </p>
 
             <p className="mx-auto mt-6 max-w-xl leading-relaxed text-white/55 text-pretty">
-              Nos ocupamos de todo lo que hay detrás: la seguridad, el mantenimiento, la
-              gente y cada visitante que llega.
+              {t.hero.apoyo}
             </p>
 
             <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -182,14 +189,14 @@ export default function Home() {
                 href="#parques"
                 className="group inline-flex items-center justify-center gap-2 rounded-full bg-champagne px-7 py-3.5 text-sm font-semibold text-ink transition-colors hover:bg-white"
               >
-                Ver nuestros parques
+                {t.hero.ctaParques}
                 <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#grupo"
                 className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/85 transition-colors hover:border-white/40 hover:text-white"
               >
-                Conocer el grupo
+                {t.hero.ctaGrupo}
               </a>
             </div>
           </div>
@@ -202,40 +209,33 @@ export default function Home() {
               <Reveal>
                 <SectionHeading
                   numero="01"
-                  eyebrow="Quiénes somos"
+                  eyebrow={t.nosotros.eyebrow}
                   titulo={
                     <>
-                      Sabemos lo que cuesta mantener{" "}
-                      <em className="text-gold-light">un parque en pie</em>
+                      {t.nosotros.titulo[0]}
+                      <em className="text-gold-light">{t.nosotros.titulo[1]}</em>
                     </>
                   }
                 />
                 <div className="mt-8 space-y-5 text-lg leading-relaxed text-white/60 text-pretty">
-                  <p>
-                    Un parque de aventura no se sostiene solo con abrir las puertas. Detrás
-                    hay líneas que revisar, equipo que mantener, gente que capacitar y
-                    cientos de visitantes que atender bien cada día.
-                  </p>
-                  <p>
-                    Llevamos más de 20 años en eso. Lo conocemos desde adentro porque
-                    operamos nuestros propios parques, y esa experiencia es la que ponemos a
-                    trabajar en cada proyecto del grupo.
-                  </p>
+                  {t.nosotros.parrafos.map((parrafo) => (
+                    <p key={parrafo}>{parrafo}</p>
+                  ))}
                 </div>
               </Reveal>
 
               <Reveal delay={100}>
                 <dl className="grid gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 sm:grid-cols-2">
-                  {PILARES.map((pilar, i) => (
-                    <div key={pilar.titulo} className="bg-ink p-8">
+                  {PILAR_IDS.map((id, i) => (
+                    <div key={id} className="bg-ink p-8">
                       <span className="tabular mb-5 block text-xs font-semibold text-gold">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <dt className="mb-2.5 text-lg font-semibold text-white">
-                        {pilar.titulo}
+                        {t.nosotros.pilares[id].titulo}
                       </dt>
                       <dd className="leading-relaxed text-white/55 text-pretty">
-                        {pilar.desc}
+                        {t.nosotros.pilares[id].desc}
                       </dd>
                     </div>
                   ))}
@@ -251,40 +251,45 @@ export default function Home() {
             <Reveal>
               <SectionHeading
                 numero="02"
-                eyebrow="Trabajo integral"
+                eyebrow={t.integral.eyebrow}
                 align="center"
                 titulo={
                   <>
-                    Todo lo que un parque necesita,{" "}
-                    <em className="text-gold-light">bajo un mismo techo</em>
+                    {t.integral.titulo[0]}
+                    <em className="text-gold-light">{t.integral.titulo[1]}</em>
                   </>
                 }
-                descripcion="Operamos parques de aventura, pero también nos encargamos de lo que gira alrededor de ellos: la fotografía, el transporte, las reservas y hasta la construcción de los parques nuevos. Al tenerlo todo dentro del grupo, no dependemos de nadie más."
+                descripcion={t.integral.descripcion}
               />
             </Reveal>
 
             <div className="mt-16 grid items-stretch gap-6 lg:grid-cols-3">
               <Reveal className="lg:row-span-2">
                 <div className="flex h-full flex-col justify-center rounded-2xl border border-gold/25 bg-gradient-to-b from-gold-deep/25 to-transparent p-10">
-                  <span className="eyebrow mb-4 text-gold">El centro de todo</span>
-                  <h3 className="font-display mb-5 text-4xl text-white">Los parques</h3>
+                  <span className="eyebrow mb-4 text-gold">{t.integral.ejeEyebrow}</span>
+                  <h3 className="font-display mb-5 text-4xl text-white">
+                    {t.integral.ejeTitulo}
+                  </h3>
                   <p className="text-lg leading-relaxed text-white/65 text-pretty">
-                    Nuestros canopy y parques de aventura. Todo lo demás existe para que
-                    funcionen bien y para que el visitante se lleve una gran experiencia.
+                    {t.integral.ejeTexto}
                   </p>
                 </div>
               </Reveal>
 
               {AREAS_APOYO.map((item, i) => (
-                <Reveal key={item.area} delay={60 * (i + 1)}>
+                <Reveal key={item.id} delay={60 * (i + 1)}>
                   <Tarjeta className="h-full p-8">
                     <div className="mb-3 flex items-baseline justify-between gap-4">
-                      <h3 className="text-lg font-semibold text-white">{item.area}</h3>
+                      <h3 className="text-lg font-semibold text-white">
+                        {t.integral.areas[item.id].area}
+                      </h3>
                       <span className="whitespace-nowrap text-sm text-gold-light">
                         {item.empresa}
                       </span>
                     </div>
-                    <p className="leading-relaxed text-white/55 text-pretty">{item.desc}</p>
+                    <p className="leading-relaxed text-white/55 text-pretty">
+                      {t.integral.areas[item.id].desc}
+                    </p>
                   </Tarjeta>
                 </Reveal>
               ))}
@@ -292,8 +297,7 @@ export default function Home() {
 
             <Reveal>
               <p className="mx-auto mt-14 max-w-2xl text-center font-display text-2xl leading-snug text-white/70 text-balance">
-                La ventaja de trabajar así es simple: la calidad la cuidamos nosotros, de
-                principio a fin.
+                {t.integral.cierre}
               </p>
             </Reveal>
           </div>
@@ -303,15 +307,13 @@ export default function Home() {
         <section className="relative z-10 px-5 py-20 sm:px-8">
           <Reveal>
             <div className="mx-auto max-w-5xl rounded-2xl border border-white/8 bg-surface/70 px-8 py-14 text-center backdrop-blur-sm sm:px-14">
-              <span className="eyebrow text-gold">Hecho en Costa Rica</span>
+              <span className="eyebrow text-gold">{t.capital.eyebrow}</span>
               <h2 className="font-display mt-5 text-3xl text-white sm:text-4xl text-balance">
-                Capital <em className="text-gold-light">100% costarricense</em>
+                {t.capital.titulo[0]}
+                <em className="text-gold-light">{t.capital.titulo[1]}</em>
               </h2>
               <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-white/60 text-pretty">
-                Grupo Oroz es una empresa de capital costarricense, con raíces locales y
-                equipos formados en el país. Generamos empleo en las comunidades donde
-                operamos y reinvertimos en el turismo de Costa Rica. Lo que construimos, lo
-                construimos aquí.
+                {t.capital.texto}
               </p>
             </div>
           </Reveal>
@@ -323,16 +325,16 @@ export default function Home() {
             <Reveal>
               <SectionHeading
                 numero="03"
-                eyebrow="Administración de parques"
+                eyebrow={t.parques.eyebrow}
                 align="center"
-                titulo="Parques de aventura"
-                descripcion="Los parques que operamos y administramos directamente en Costa Rica, cada uno con estándares de seguridad ACCT y mantenimiento constante."
+                titulo={t.parques.titulo}
+                descripcion={t.parques.descripcion}
               />
             </Reveal>
 
             <div className="mt-16 grid gap-6 md:grid-cols-3">
               {PARQUES.map((parque, i) => (
-                <Reveal key={parque.nombre} delay={80 * i}>
+                <Reveal key={parque.id} delay={80 * i}>
                   <Tarjeta className="group h-full overflow-hidden p-7">
                     <div className="relative">
                       <LogoPlaca src={parque.logo} alt={parque.nombre} className="h-44" />
@@ -359,11 +361,13 @@ export default function Home() {
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 text-sm font-medium text-gold-light transition-colors hover:text-champagne"
                         >
-                          Visitar sitio web
+                          {t.parques.visitar}
                           <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                         </Link>
                       ) : (
-                        <span className="text-sm text-white/35">Próxima apertura</span>
+                        <span className="text-sm text-white/35">
+                          {t.parques.proximaApertura}
+                        </span>
                       )}
                     </div>
                   </Tarjeta>
@@ -373,14 +377,16 @@ export default function Home() {
 
             <Reveal>
               <dl className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 md:grid-cols-4">
-                {INDICADORES.map((stat) => (
-                  <div key={stat.label} className="bg-ink px-6 py-10 text-center">
-                    <dt className="sr-only">{stat.label}</dt>
+                {INDICADOR_IDS.map((id) => (
+                  <div key={id} className="bg-ink px-6 py-10 text-center">
+                    <dt className="sr-only">{t.parques.indicadores[id]}</dt>
                     <dd>
                       <span className="tabular font-display block text-4xl text-champagne sm:text-5xl">
-                        {stat.value}
+                        {INDICADOR_VALORES[id]}
                       </span>
-                      <span className="mt-3 block text-sm text-white/45">{stat.label}</span>
+                      <span className="mt-3 block text-sm text-white/45">
+                        {t.parques.indicadores[id]}
+                      </span>
                     </dd>
                   </div>
                 ))}
@@ -395,22 +401,22 @@ export default function Home() {
             <Reveal>
               <SectionHeading
                 numero="04"
-                eyebrow="Turismo y viajes"
+                eyebrow={t.agencias.eyebrow}
                 align="center"
-                titulo="Agencias de viajes"
-                descripcion="Nuestras agencias arman los recorridos y conectan a los viajeros con cada destino de Costa Rica."
+                titulo={t.agencias.titulo}
+                descripcion={t.agencias.descripcion}
               />
             </Reveal>
 
             <div className="mt-16 grid gap-6 md:grid-cols-3">
               {AGENCIAS.map((agencia, i) => (
-                <Reveal key={agencia.nombre} delay={80 * i}>
+                <Reveal key={agencia.id} delay={80 * i}>
                   <Tarjeta className="h-full p-7 text-center">
                     <LogoPlaca src={agencia.logo} alt={agencia.nombre} className="h-40" />
                     <h3 className="mt-7 text-xl font-semibold text-white">
                       {agencia.nombre}
                     </h3>
-                    <p className="mt-2 text-white/50">{agencia.desc}</p>
+                    <p className="mt-2 text-white/50">{t.agencias.items[agencia.id]}</p>
                   </Tarjeta>
                 </Reveal>
               ))}
@@ -424,23 +430,22 @@ export default function Home() {
             <Reveal>
               <SectionHeading
                 numero="05"
-                eyebrow="Ecosistema empresarial"
+                eyebrow={t.servicios.eyebrow}
                 align="center"
-                titulo="Más servicios"
-                descripcion="Las empresas de transporte, tecnología y construcción que sostienen la operación del grupo."
+                titulo={t.servicios.titulo}
+                descripcion={t.servicios.descripcion}
               />
             </Reveal>
 
             <div className="mt-16 grid gap-6 lg:grid-cols-3">
               <Reveal>
                 <Tarjeta className="flex h-full flex-col p-8">
-                  <span className="eyebrow text-gold">Transporte</span>
+                  <span className="eyebrow text-gold">{t.servicios.transporte.eyebrow}</span>
                   <h3 className="font-display mt-4 text-3xl text-white">
                     Can&apos;t Wait Travel
                   </h3>
                   <p className="mt-4 mb-8 leading-relaxed text-white/55 text-pretty">
-                    Transporte turístico para trasladar a los visitantes hacia cada parque y
-                    destino del país.
+                    {t.servicios.transporte.texto}
                   </p>
                   <div className="mt-auto">
                     <LogoPlaca
@@ -454,11 +459,10 @@ export default function Home() {
 
               <Reveal delay={80}>
                 <Tarjeta className="flex h-full flex-col p-8">
-                  <span className="eyebrow text-gold">Tecnología</span>
-                  <h3 className="font-display mt-4 text-3xl text-white">MaxDigital y Ruby</h3>
+                  <span className="eyebrow text-gold">{t.servicios.tecnologia.eyebrow}</span>
+                  <h3 className="font-display mt-4 text-3xl text-white">MaxDigital &amp; Ruby</h3>
                   <p className="mt-4 mb-8 leading-relaxed text-white/55 text-pretty">
-                    Plataformas de reservas, pagos y gestión que mantienen la operación
-                    funcionando cada día.
+                    {t.servicios.tecnologia.texto}
                   </p>
                   <div className="mt-auto grid grid-cols-2 gap-4">
                     <LogoPlaca
@@ -473,13 +477,12 @@ export default function Home() {
 
               <Reveal delay={160}>
                 <Tarjeta className="flex h-full flex-col p-8">
-                  <span className="eyebrow text-gold">Construcción</span>
+                  <span className="eyebrow text-gold">{t.servicios.construccion.eyebrow}</span>
                   <h3 className="font-display mt-4 text-3xl text-white">
                     Adventures Designer
                   </h3>
                   <p className="mt-4 mb-8 leading-relaxed text-white/55 text-pretty">
-                    Diseño, construcción y certificación de canopy, desde la primera línea
-                    hasta la apertura del parque.
+                    {t.servicios.construccion.texto}
                   </p>
                   <div className="mt-auto">
                     <LogoPlaca
@@ -501,29 +504,24 @@ export default function Home() {
               <Reveal>
                 <SectionHeading
                   numero="06"
-                  eyebrow="Contenido fotográfico"
+                  eyebrow={t.orostudios.eyebrow}
                   titulo="OrostudiosCR"
                 />
                 <p className="mt-8 text-lg leading-relaxed text-white/60 text-pretty">
-                  Es la rama del grupo dedicada a fotografía y video en parques de aventura.
-                  En más de 20 años ha trabajado con más de 18 parques en Costa Rica,
-                  capturando la experiencia de cada visitante y generando el contenido de
-                  cada marca.
+                  {t.orostudios.texto}
                 </p>
 
                 <dl className="mt-10 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8">
-                  {[
-                    { value: "+3500", label: "Nuevos leads" },
-                    { value: "+50%", label: "Ganancia anual" },
-                    { value: "+1600", label: "Seguidores" },
-                  ].map((stat) => (
-                    <div key={stat.label} className="bg-ink px-4 py-7 text-center">
-                      <dt className="sr-only">{stat.label}</dt>
+                  {OROSTUDIOS_METRICAS.map((metrica) => (
+                    <div key={metrica.id} className="bg-ink px-4 py-7 text-center">
+                      <dt className="sr-only">{t.orostudios.metricas[metrica.id]}</dt>
                       <dd>
                         <span className="tabular font-display block text-3xl text-champagne sm:text-4xl">
-                          {stat.value}
+                          {metrica.valor}
                         </span>
-                        <span className="mt-2 block text-xs text-white/45">{stat.label}</span>
+                        <span className="mt-2 block text-xs text-white/45">
+                          {t.orostudios.metricas[metrica.id]}
+                        </span>
                       </dd>
                     </div>
                   ))}
@@ -535,7 +533,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="group mt-10 inline-flex items-center gap-2 rounded-full border border-gold/40 px-7 py-3.5 text-sm font-semibold text-gold-light transition-colors hover:border-gold hover:bg-gold/10"
                 >
-                  Conocer OrostudiosCR
+                  {t.orostudios.cta}
                   <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </Reveal>
@@ -557,21 +555,20 @@ export default function Home() {
                 <div className="text-center">
                   <span className="eyebrow inline-flex items-center gap-2 text-gold">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
-                    En operación
+                    {t.orostudios.oficinas.badge}
                   </span>
                   <h3 className="font-display mt-5 text-3xl text-white sm:text-4xl">
-                    Nuestras oficinas
+                    {t.orostudios.oficinas.titulo}
                   </h3>
                   <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-white/50 text-pretty">
-                    Oficinas fotográficas de OrostudiosCR instaladas dentro de los parques,
-                    atendidas por nuestro propio equipo.
+                    {t.orostudios.oficinas.descripcion}
                   </p>
                 </div>
               </Reveal>
 
               <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {OFICINAS_ACTIVAS.map((oficina, i) => (
-                  <Reveal key={oficina.nombre} delay={70 * i} className="h-full">
+                  <Reveal key={oficina.id} delay={70 * i} className="h-full">
                     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/8 bg-surface/80 backdrop-blur-sm transition-colors duration-300 hover:border-gold/40">
                       <div className="relative aspect-[4/3] overflow-hidden bg-ink">
                         <Image
@@ -590,7 +587,7 @@ export default function Home() {
                             className="h-1.5 w-1.5 rounded-full bg-emerald-950"
                             aria-hidden="true"
                           />
-                          En operación
+                          {t.orostudios.oficinas.badge}
                         </span>
                       </div>
 
@@ -601,11 +598,11 @@ export default function Home() {
                           {oficina.ubicacion}
                         </p>
                         <p className="mt-4 leading-relaxed text-white/55 text-pretty">
-                          {oficina.desc}
+                          {t.orostudios.oficinas.descripciones[oficina.id]}
                         </p>
 
                         <ul className="mt-auto flex flex-wrap gap-x-5 gap-y-2 border-t border-white/8 pt-5">
-                          {OFICINA_BENEFICIOS.map((beneficio) => (
+                          {t.orostudios.oficinas.beneficios.map((beneficio) => (
                             <li
                               key={beneficio}
                               className="flex items-center gap-1.5 text-sm text-white/45"
@@ -627,16 +624,17 @@ export default function Home() {
                   <div className="mb-10 flex items-center gap-5">
                     <span className="h-px flex-1 bg-white/8" aria-hidden="true" />
                     <span className="eyebrow whitespace-nowrap text-gold">
-                      Próximamente
+                      {t.orostudios.proximas.eyebrow}
                     </span>
                     <span className="h-px flex-1 bg-white/8" aria-hidden="true" />
                   </div>
 
                   <div className="text-center">
-                    <h4 className="font-display text-3xl text-white">Próximas aperturas</h4>
+                    <h4 className="font-display text-3xl text-white">
+                      {t.orostudios.proximas.titulo}
+                    </h4>
                     <p className="mx-auto mt-4 max-w-xl text-white/50 text-pretty">
-                      Parques donde ya estamos preparando la instalación de nuestra oficina
-                      fotográfica.
+                      {t.orostudios.proximas.descripcion}
                     </p>
                   </div>
 
@@ -663,7 +661,7 @@ export default function Home() {
                         </div>
                         <div className="min-w-0">
                           <span className="inline-block rounded-full border border-gold/40 px-2.5 py-0.5 text-[10px] font-semibold tracking-[0.14em] text-gold-light uppercase">
-                            Próximamente
+                            {t.orostudios.proximas.badge}
                           </span>
                           <p className="mt-2 truncate font-semibold text-white">
                             {oficina.nombre}
@@ -686,13 +684,13 @@ export default function Home() {
         <section id="contacto" className="relative z-10 px-5 py-28 sm:px-8">
           <Reveal>
             <div className="mx-auto max-w-5xl rounded-2xl border border-white/8 bg-surface/70 px-8 py-16 text-center backdrop-blur-sm sm:px-14">
-              <span className="eyebrow text-gold">Hablemos</span>
+              <span className="eyebrow text-gold">{t.contacto.eyebrow}</span>
               <h2 className="font-display mt-5 text-3xl text-white sm:text-5xl text-balance">
-                ¿Tiene un parque que necesita <em className="text-gold-light">buena mano</em>?
+                {t.contacto.titulo[0]}
+                <em className="text-gold-light">{t.contacto.titulo[1]}</em>?
               </h2>
               <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/60 text-pretty">
-                Operación, seguridad, mantenimiento, fotografía o construcción. Cuéntenos
-                qué necesita y le respondemos con una propuesta concreta.
+                {t.contacto.texto}
               </p>
 
               <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -700,7 +698,7 @@ export default function Home() {
                   href={`mailto:${CONTACTO.email}`}
                   className="inline-flex items-center justify-center rounded-full bg-champagne px-7 py-3.5 text-sm font-semibold text-ink transition-colors hover:bg-white"
                 >
-                  Escribir un correo
+                  {t.contacto.ctaCorreo}
                 </a>
                 <a
                   href={CONTACTO.whatsapp}
@@ -708,7 +706,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/85 transition-colors hover:border-white/40 hover:text-white"
                 >
-                  Escribir por WhatsApp
+                  {t.contacto.ctaWhatsapp}
                 </a>
               </div>
 
@@ -740,53 +738,60 @@ export default function Home() {
                   />
                 </div>
                 <p className="mt-6 leading-relaxed text-white/45 text-pretty">
-                  Grupo de capital costarricense dedicado a operar y administrar parques de
-                  aventura en Costa Rica.
+                  {t.footer.descripcion}
+                </p>
+                <p className="mt-6 space-x-3 text-sm">
+                  <a
+                    href={`mailto:${CONTACTO.email}`}
+                    className="text-white/60 transition-colors hover:text-champagne"
+                  >
+                    {CONTACTO.email}
+                  </a>
+                </p>
+                <p className="mt-1 text-sm">
+                  <a
+                    href={`tel:${CONTACTO.telefonoHref}`}
+                    className="text-white/60 transition-colors hover:text-champagne"
+                  >
+                    {CONTACTO.telefono}
+                  </a>
                 </p>
               </div>
 
               <div>
-                <h3 className="eyebrow mb-5 text-white/40">Parques</h3>
+                <h3 className="eyebrow mb-5 text-white/40">{t.footer.parques}</h3>
                 <ul className="space-y-3 text-white/60">
-                  <li>
-                    <a
-                      href="https://www.skylinecanopytour.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="transition-colors hover:text-champagne"
-                    >
-                      Skyline Canopy Tour
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.arenalecoglide.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="transition-colors hover:text-champagne"
-                    >
-                      Ecoglide Arenal Park
-                    </a>
-                  </li>
-                  <li className="text-white/30">Poás Adventure Park (2026)</li>
+                  {ENLACES_PARQUES.map((parque) => (
+                    <li key={parque.nombre}>
+                      <a
+                        href={parque.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="transition-colors hover:text-champagne"
+                      >
+                        {parque.nombre}
+                      </a>
+                    </li>
+                  ))}
+                  <li className="text-white/30">{t.footer.poas}</li>
                 </ul>
               </div>
 
               <div>
-                <h3 className="eyebrow mb-5 text-white/40">Agencias</h3>
+                <h3 className="eyebrow mb-5 text-white/40">{t.footer.agencias}</h3>
                 <ul className="space-y-3 text-white/60">
                   {AGENCIAS.map((a) => (
-                    <li key={a.nombre}>{a.nombre}</li>
+                    <li key={a.id}>{a.nombre}</li>
                   ))}
                 </ul>
               </div>
 
               <div>
-                <h3 className="eyebrow mb-5 text-white/40">Servicios</h3>
+                <h3 className="eyebrow mb-5 text-white/40">{t.footer.servicios}</h3>
                 <ul className="space-y-3 text-white/60">
-                  <li>Can&apos;t Wait Travel</li>
-                  <li>MaxDigital y Ruby</li>
-                  <li>Adventures Designer</li>
+                  {ENLACES_SERVICIOS.map((servicio) => (
+                    <li key={servicio}>{servicio}</li>
+                  ))}
                   <li>
                     <a
                       href="https://www.orostudioscr.com"
@@ -801,9 +806,14 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/8 pt-8 text-sm text-white/35 sm:flex-row">
-              <p>&copy; {new Date().getFullYear()} Grupo Oroz. Todos los derechos reservados.</p>
-              <p>San José, Costa Rica</p>
+            <div className="mt-14 flex flex-col items-center justify-between gap-5 border-t border-white/8 pt-8 text-sm text-white/35 sm:flex-row">
+              <p>
+                &copy; {new Date().getFullYear()} Grupo Oroz. {t.footer.derechos}
+              </p>
+              <div className="flex items-center gap-5">
+                <p>{CONTACTO.ciudad}</p>
+                <LanguageSwitcher lang={lang} etiqueta={t.a11y.cambiarIdioma} />
+              </div>
             </div>
           </div>
         </footer>
