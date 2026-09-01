@@ -1,570 +1,813 @@
-'use client';
+import Image from "next/image";
+import Link from "next/link";
 
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import Reveal from "@/components/Reveal";
+import SectionHeading from "@/components/SectionHeading";
+import SiteHeader from "@/components/SiteHeader";
+import { SUPABASE_IMAGES } from "@/lib/assets";
+import {
+  AGENCIAS,
+  AREAS_APOYO,
+  CONTACTO,
+  INDICADORES,
+  OFICINAS_ACTIVAS,
+  OFICINAS_PROXIMAS,
+  OFICINA_BENEFICIOS,
+  PARQUES,
+  PILARES,
+} from "@/lib/content";
 
-// URLs de Supabase
-const SUPABASE_IMAGES = {
-  background: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/_BBB3750.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9fQkJCMzc1MC53ZWJwIiwiaWF0IjoxNzY0ODY5MDMxLCJleHAiOjE3OTY0MDUwMzF9.0FEkoFt-EQMTou1bOrtPZdukelI4D21oGgEephrGw_g",
-  mainLogo: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/sign/logos-oroz/GRUPO%20OROZO%20LOGO%20trans.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iZmNkZjM3My00NzkzLTRhYjQtYmRhOC04OWY1ZmNiMjdhMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJsb2dvcy1vcm96L0dSVVBPIE9ST1pPIExPR08gdHJhbnMucG5nIiwiaWF0IjoxNzY5ODgzNDkwLCJleHAiOjI0MDA2MDM0OTB9.2QYmS_p1Efzo4eJqt1e4TdwS7gXdGbAkyq0oDNaDTtw",
-  ecoglide: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/logo-ecoglide-arenal-park.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9sb2dvLWVjb2dsaWRlLWFyZW5hbC1wYXJrLndlYnAiLCJpYXQiOjE3NjQ4NjkwNDksImV4cCI6MTc5NjQwNTA0OX0.JbTaJxokTytMoYCxzzhR0VN9BNiMTCgRPMVBRRBuMwY",
-  poas: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/poas-adventure-park.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9wb2FzLWFkdmVudHVyZS1wYXJrLndlYnAiLCJpYXQiOjE3NjQ5NTU4MzYsImV4cCI6MTc5NjQ5MTgzNn0.tfroBG9kBFLb6R7224gqDhd5xVhOo3Y4jdsF4OPM6M0",
-  skyline: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/sign/logos-oroz/skyline-logo.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iZmNkZjM3My00NzkzLTRhYjQtYmRhOC04OWY1ZmNiMjdhMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJsb2dvcy1vcm96L3NreWxpbmUtbG9nby5qcGVnIiwiaWF0IjoxNzY5ODc4OTM3LCJleHAiOjI0MDA1OTg5Mzd9.zM1xj5pVR_-QJEUwy3jRGkCzDg77aL3hcICSTGItSmU",
-  orostudios: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/Orostudios%20CR%20Logo.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9Pcm9zdHVkaW9zIENSIExvZ28ud2VicCIsImlhdCI6MTc2NDg2OTExMywiZXhwIjoxNzk2NDA1MTEzfQ.30JfBaXmaeZ0HCECt4Nq-b6AEgNF_0dEqVaIXoDWvBc",
-  crDoing: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/sign/logos-oroz/CR%20DOING.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iZmNkZjM3My00NzkzLTRhYjQtYmRhOC04OWY1ZmNiMjdhMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJsb2dvcy1vcm96L0NSIERPSU5HLnBuZyIsImlhdCI6MTc2OTg3ODczNSwiZXhwIjoyNDAwNTk4NzM1fQ.LBtlZM3DjLOMMwhOv74hqYMnXDtEAWZ0zTZy2ZmYdgY",
-  crParadise: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/sign/logos-oroz/crparadise.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iZmNkZjM3My00NzkzLTRhYjQtYmRhOC04OWY1ZmNiMjdhMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJsb2dvcy1vcm96L2NycGFyYWRpc2UucG5nIiwiaWF0IjoxNzY5ODc4NzU3LCJleHAiOjI0MDA1OTg3NTd9.SCb7nhvqLxL5W5AF3QsVcScWPPn4VYYmzWu-oMTMlos",
-  gttTours: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/sign/logos-oroz/gtt-logo.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iZmNkZjM3My00NzkzLTRhYjQtYmRhOC04OWY1ZmNiMjdhMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJsb2dvcy1vcm96L2d0dC1sb2dvLmpwZWciLCJpYXQiOjE3Njk4Nzg4MDcsImV4cCI6MjQwMDU5ODgwN30.SyTuEXOtJ1UWdj2YIn6RpWVTXs1Sw8F-nXuTpVVEw5Y",
-  cantWaitTravel: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/sign/logos-oroz/Logo%20CWT%20Costa%20Rica-FINAL-01.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iZmNkZjM3My00NzkzLTRhYjQtYmRhOC04OWY1ZmNiMjdhMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJsb2dvcy1vcm96L0xvZ28gQ1dUIENvc3RhIFJpY2EtRklOQUwtMDEucG5nIiwiaWF0IjoxNzY5ODc4ODIyLCJleHAiOjI0MDA1OTg4MjJ9.jJtdDXJ-YOCiBnzd1bnRgJqGsJd4F2SEldsjl5ukt7k",
-  maxDigital: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/sign/logos-oroz/logo-max-transparente.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iZmNkZjM3My00NzkzLTRhYjQtYmRhOC04OWY1ZmNiMjdhMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJsb2dvcy1vcm96L2xvZ28tbWF4LXRyYW5zcGFyZW50ZS5wbmciLCJpYXQiOjE3Njk4Nzg4MzQsImV4cCI6MjQwMDU5ODgzNH0.tS1Ndtr8JFpp7aQb33TrvyPtazyviBIEH_sM6VIT3_8",
-  ruby: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/sign/PRUEBAS/ruby-logo-Photoroom.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iZmNkZjM3My00NzkzLTRhYjQtYmRhOC04OWY1ZmNiMjdhMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQUlVFQkFTL3J1YnktbG9nby1QaG90b3Jvb20ucG5nIiwiaWF0IjoxNzY5ODgzMTk0LCJleHAiOjI0MDA2MDMxOTR9.DfWIJT0wMtNecq7jvuRPvnwzZ2hBneAUHyRr8OnKhM0",
-  adventuresDesigner: "https://mmlbslwljvmscbgsqkkq.supabase.co/storage/v1/object/sign/PRUEBAS/WhatsApp%20Image%202026-01-17%20at%2010.14.43%20AM.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9iZmNkZjM3My00NzkzLTRhYjQtYmRhOC04OWY1ZmNiMjdhMzciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJQUlVFQkFTL1doYXRzQXBwIEltYWdlIDIwMjYtMDEtMTcgYXQgMTAuMTQuNDMgQU0ucG5nIiwiaWF0IjoxNzY5ODc5MDI4LCJleHAiOjI0MDA1OTkwMjh9.wR32bSgfOXbfsKy754LjFO3K7H7cAyyNb5ElTNhVAu8",
-  oficinaEcoglide: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/ecoglide-oficina.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9lY29nbGlkZS1vZmljaW5hLnBuZyIsImlhdCI6MTc2NDg3MjIyNywiZXhwIjoxNzk2NDA4MjI3fQ.KIfP-37WDz31tsRryPXcOPJt2jBE1j91-HRTxzPalyw",
-  oficinaSkyline: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/skyline-oficina.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9za3lsaW5lLW9maWNpbmEud2VicCIsImlhdCI6MTc2NDg3MjI0MCwiZXhwIjoxNzk2NDA4MjQwfQ.ttqWKE6sjS3og01L4hPl9kZTpdfA03fizFmn-sM6P3c",
-  oficinaAMA: "https://jrphapxnjpcepsecfsoe.supabase.co/storage/v1/object/sign/fotos/ama-oficina.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNDJiMjQ5Yy00YjhhLTQ5ZDAtOTJmMC1iNjlkMmI2MjFhODUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJmb3Rvcy9hbWEtb2ZpY2luYS53ZWJwIiwiaWF0IjoxNzY0ODcyMjE4LCJleHAiOjE3OTY0MDgyMTh9.bquypJ16I5U-XRfh6njGbzT2Sxy4pZtZ3ZX2cj-QOBI",
-};
+/* ---------- Iconos ---------- */
 
-const CameraDecor = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 15.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"/>
-    <path d="M9 2 7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9Zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5Z"/>
-  </svg>
-);
+function IconPin({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path
+        fillRule="evenodd"
+        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
 
-const ZiplineDecor = ({ className }: { className?: string }) => (
-  <svg className={className} viewBox="0 0 140 60" fill="currentColor">
-    <line x1="0" y1="12" x2="140" y2="45" stroke="currentColor" strokeWidth="2.5" fill="none"/>
-    <circle cx="65" cy="24" r="5" fill="currentColor"/>
-    <ellipse cx="65" cy="38" rx="4" ry="4"/>
-    <ellipse cx="78" cy="40" rx="12" ry="5"/>
-    <line x1="68" y1="36" x2="65" y2="28" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-    <line x1="72" y1="35" x2="68" y2="28" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-    <line x1="88" y1="42" x2="100" y2="48" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-    <line x1="88" y1="38" x2="100" y2="42" stroke="currentColor" strokeWidth="3" strokeLinecap="round"/>
-  </svg>
-);
+function IconCheck({ className = "h-3.5 w-3.5" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={2.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  );
+}
+
+function IconArrow({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 12h14M13 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+/* ---------- Piezas reutilizables ---------- */
+
+function LogoPlaca({
+  src,
+  alt,
+  className = "h-40",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) {
+  return (
+    <div className={`relative w-full rounded-xl bg-white ${className}`}>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 768px) 90vw, 380px"
+        className="object-contain p-6"
+      />
+    </div>
+  );
+}
+
+function Tarjeta({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div
+      className={`rounded-2xl border border-white/8 bg-surface/80 backdrop-blur-sm transition-colors duration-300 hover:border-white/15 ${className}`}
+    >
+      {children}
+    </div>
+  );
+}
+
+/* ---------- Página ---------- */
 
 export default function Home() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const oficinasOrostudios = [
-    { nombre: "Ecoglide Arenal Park", ubicacion: "La Fortuna, San Carlos", foto: SUPABASE_IMAGES.oficinaEcoglide, activa: true },
-    { nombre: "Skyline Canopy Tour", ubicacion: "Santa Cruz, Guanacaste", foto: SUPABASE_IMAGES.oficinaSkyline, activa: true },
-    { nombre: "Arenal Mundo Aventura", ubicacion: "La Fortuna, San Carlos", foto: SUPABASE_IMAGES.oficinaAMA, activa: true },
-    { nombre: "Poás Adventure Park", ubicacion: "Poás, Alajuela", foto: null, activa: false, proximamente: true },
-    { nombre: "Black Stallion Park", ubicacion: "Tamarindo, Guanacaste", foto: null, activa: false, proximamente: true },
-    { nombre: "Attica Canopy Tour", ubicacion: "La Fortuna, San Carlos", foto: null, activa: false, proximamente: true },
-    { nombre: "Brisas de la Jungla", ubicacion: "Limón", foto: null, activa: false, proximamente: true },
-    { nombre: "Four Seasons Adventure Park", ubicacion: "Papagayo, Guanacaste", foto: null, activa: false, proximamente: true }
-  ];
-
   return (
-    <main className="min-h-screen overflow-hidden relative">
-      {/* Fixed background */}
-      <div className="fixed inset-0 z-0">
-        <Image src={SUPABASE_IMAGES.background} alt="Background" fill className="object-cover" priority />
-        <div className="absolute inset-0 bg-black/75" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
-      </div>
+    <>
+      <SiteHeader />
 
-      {/* Gold glow */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none z-[1]">
-        <div className="absolute top-1/4 -left-32 w-96 h-96 bg-[#C9A227]/8 rounded-full blur-3xl" />
-        <div className="absolute top-3/4 -right-32 w-80 h-80 bg-[#E6BE4D]/8 rounded-full blur-3xl" />
-      </div>
-
-      {/* Header */}
-      <header className={`fixed w-full top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-slate-950/90 backdrop-blur-xl border-b border-[#C9A227]/20' : 'bg-transparent'}`}>
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-24">
-            <div className="flex-shrink-0">
-              <div className="relative h-20 w-48">
-                <Image src={SUPABASE_IMAGES.mainLogo} alt="Grupo Oroz CR" fill className="object-contain" />
-              </div>
-            </div>
-            <div className="hidden md:flex items-center space-x-2">
-              {['Inicio', 'Parques', 'Agencias', 'Servicios', 'OrostudiosCR', 'Contacto'].map((item, i) => (
-                <a key={i} href={`#${item.toLowerCase().replace('orostudioscr', 'orostudios')}`}
-                   className="px-5 py-2.5 text-white/80 hover:text-[#E6BE4D] hover:bg-white/5 rounded-full transition-all duration-300 text-sm font-bold">
-                  {item}
-                </a>
-              ))}
-            </div>
-          </div>
-        </nav>
-      </header>
-
-      {/* ==================== HERO ==================== */}
-      <section id="inicio" className="relative z-10 min-h-screen flex items-center justify-center px-4 pt-24">
-        <div className="text-center max-w-5xl mx-auto animate-fade-in-up">
-          <div className="inline-flex items-center gap-2.5 px-5 py-2 bg-white/5 border border-white/15 rounded-full mb-10 backdrop-blur-sm">
-            <span className="w-2 h-2 bg-[#E6BE4D] rounded-full" />
-            <span className="text-white/80 text-xs font-sans font-semibold tracking-[0.2em] uppercase">Costa Rica</span>
-          </div>
-
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-medium text-white mb-8 leading-[0.95]">
-            Grupo <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-[#C9A227] via-[#E6BE4D] to-[#FFD966]">Oroz</span>
-          </h1>
-
-          <p className="text-xl md:text-2xl font-sans font-light text-white/85 mb-6 max-w-3xl mx-auto leading-relaxed">
-            Operamos y administramos parques de aventura en Costa Rica. Nos ocupamos de todo lo que hay detrás: la seguridad, el mantenimiento, la gente y cada visitante que llega.
-          </p>
-
-          <p className="text-base font-sans text-white/50 mb-12 max-w-2xl mx-auto leading-relaxed">
-            Un grupo de capital costarricense que reúne parques, turismo, fotografía, transporte, tecnología y construcción.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#parques" className="group inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#E6BE4D] hover:bg-[#FFD966] text-slate-950 font-sans font-semibold rounded-full transition-all duration-300">
-              Ver nuestros parques
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </a>
-            <a href="#grupo" className="px-8 py-4 font-sans font-medium text-white/90 rounded-full border border-white/25 hover:bg-white/5 hover:border-white/50 transition-all duration-300">
-              Conocer el grupo
-            </a>
-          </div>
+      <main id="contenido" className="relative">
+        {/* Fondo fijo */}
+        <div className="fixed inset-0 z-0">
+          <Image
+            src={SUPABASE_IMAGES.background}
+            alt=""
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0 bg-ink/85" />
+          <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/40 to-ink" />
         </div>
-      </section>
 
-      {/* ==================== EXPERTOS EN ADMINISTRACIÓN ==================== */}
-      <section id="nosotros" className="relative z-10 py-32 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
-                QUIÉNES SOMOS
-              </span>
-              <h2 className="text-4xl md:text-5xl font-medium text-white mb-8 leading-[1.1]">
-                Sabemos lo que cuesta<br className="hidden md:block" /> mantener <span className="italic text-[#E6BE4D]">un parque en pie</span>
-              </h2>
-              <p className="text-lg font-sans text-white/70 mb-6 leading-relaxed">
-                Un parque de aventura no se sostiene solo con abrir las puertas. Detrás hay líneas que revisar, equipo que mantener, gente que capacitar y cientos de visitantes que atender bien cada día.
-              </p>
-              <p className="text-lg font-sans text-white/70 leading-relaxed">
-                Llevamos más de 20 años en eso. Lo conocemos desde adentro porque operamos nuestros propios parques, y esa experiencia es la que ponemos a trabajar en cada proyecto del grupo.
-              </p>
-            </div>
-
-            <div className="grid sm:grid-cols-2 gap-6">
-              {[
-                { titulo: "Operación diaria", desc: "Gestión completa de la operación, el personal y los horarios de cada parque." },
-                { titulo: "Seguridad certificada", desc: "Estándares ACCT, inspección de líneas y protocolos revisados de forma constante." },
-                { titulo: "Mantenimiento", desc: "Revisión y mantenimiento continuo de cables, plataformas y equipo de protección." },
-                { titulo: "Experiencia del visitante", desc: "Atención cuidada de principio a fin, desde la reserva hasta el último tour." }
-              ].map((pilar, i) => (
-                <div key={i} className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-7 hover:border-[#C9A227]/50 transition-all duration-300">
-                  <div className="w-12 h-12 bg-gradient-to-br from-[#996515] to-[#E6BE4D] rounded-xl flex items-center justify-center mb-5">
-                    <span className="text-slate-950 font-black text-lg">{i + 1}</span>
-                  </div>
-                  <h3 className="text-xl font-black text-white mb-2">{pilar.titulo}</h3>
-                  <p className="text-white/60 leading-relaxed">{pilar.desc}</p>
-                </div>
-              ))}
+        {/* ==================== HERO ==================== */}
+        <section
+          id="inicio"
+          className="relative z-10 flex min-h-screen items-center justify-center px-5 py-32"
+        >
+          {/* Logotipo como marca de agua, a gran escala */}
+          <div
+            className="pointer-events-none absolute inset-0 flex items-center justify-center overflow-hidden"
+            aria-hidden="true"
+          >
+            <div className="relative aspect-[1080/472] w-[190vw] max-w-none opacity-[0.055] sm:w-[150vw] lg:w-[115vw]">
+              <Image
+                src={SUPABASE_IMAGES.mainLogo}
+                alt=""
+                fill
+                sizes="150vw"
+                className="object-contain grayscale"
+                priority
+              />
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* ==================== TRABAJO INTEGRAL (ECOSISTEMA) ==================== */}
-      <section id="grupo" className="relative z-10 py-32 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="bg-slate-950/85 backdrop-blur-xl rounded-[2.5rem] border border-white/10 shadow-2xl p-8 md:p-16">
-            <div className="text-center max-w-3xl mx-auto mb-14">
-              <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
-                TRABAJO INTEGRAL
+          <div className="relative mx-auto w-full max-w-4xl text-center">
+            <p className="eyebrow mb-10 text-white/40">Costa Rica · desde 2004</p>
+
+            {/* El logotipo es el titular */}
+            <h1 className="mx-auto mb-10 w-full max-w-2xl">
+              <span className="relative block aspect-[1080/472] w-full">
+                <Image
+                  src={SUPABASE_IMAGES.mainLogo}
+                  alt="Grupo Oroz"
+                  fill
+                  sizes="(max-width: 768px) 88vw, 672px"
+                  className="object-contain drop-shadow-[0_10px_40px_rgba(0,0,0,0.6)]"
+                  priority
+                />
               </span>
-              <h2 className="text-4xl md:text-5xl font-medium text-white mb-6 leading-[1.1]">
-                Todo lo que un parque necesita, <span className="italic text-[#E6BE4D]">bajo un mismo techo</span>
-              </h2>
-              <p className="text-lg md:text-xl text-white/70 leading-relaxed">
-                Operamos parques de aventura, pero también nos encargamos de lo que gira alrededor de ellos: la fotografía, el transporte, las reservas y hasta la construcción de los parques nuevos. Al tenerlo todo dentro del grupo, no dependemos de nadie más.
-              </p>
-            </div>
+            </h1>
 
-            {/* Eje central + áreas de apoyo */}
-            <div className="grid lg:grid-cols-3 gap-6 items-stretch mb-8">
-              {/* Parques — eje */}
-              <div className="lg:row-span-2 bg-gradient-to-br from-[#996515] via-[#C9A227] to-[#E6BE4D] rounded-3xl p-8 flex flex-col justify-center text-center shadow-xl">
-                <span className="text-slate-950/70 text-xs font-black tracking-widest uppercase mb-3">El centro de todo</span>
-                <h3 className="text-3xl md:text-4xl font-black text-slate-950 mb-4">Los Parques</h3>
-                <p className="text-slate-950/80 leading-relaxed font-medium">
-                  Nuestros canopy y parques de aventura. Todo lo demás existe para que funcionen bien y para que el visitante se lleve una gran experiencia.
-                </p>
-              </div>
+            <div className="mx-auto mb-10 h-px w-24 rule-gold" aria-hidden="true" />
 
-              {/* Áreas de apoyo */}
-              {[
-                { area: "Fotografía y video", empresa: "OrostudiosCR", desc: "Fotografía y graba a los visitantes, y produce el contenido de cada parque." },
-                { area: "Transporte", empresa: "Can't Wait Travel", desc: "Lleva a los turistas hasta la entrada de cada parque, desde cualquier punto del país." },
-                { area: "Tecnología", empresa: "MaxDigital y Ruby", desc: "Manejan las reservas, los pagos y todo el día a día digital de la operación." },
-                { area: "Construcción", empresa: "Adventures Designer", desc: "Diseña y levanta los parques nuevos, línea por línea." }
-              ].map((item, i) => (
-                <div key={i} className="bg-white/[0.04] rounded-3xl border border-white/10 p-7 hover:border-[#C9A227]/50 hover:bg-white/[0.07] transition-all duration-300">
-                  <div className="flex items-baseline justify-between gap-3 mb-3">
-                    <h3 className="text-xl font-black text-white">{item.area}</h3>
-                    <span className="text-[#E6BE4D] text-sm font-bold whitespace-nowrap">{item.empresa}</span>
-                  </div>
-                  <p className="text-white/60 leading-relaxed">{item.desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <p className="text-center text-white/50 max-w-2xl mx-auto text-lg leading-relaxed">
-              La ventaja de trabajar así es simple: la calidad la cuidamos nosotros, de principio a fin.
+            <p className="mx-auto max-w-2xl font-display text-2xl leading-snug text-champagne sm:text-3xl text-balance">
+              Operamos y administramos parques de aventura en Costa Rica.
             </p>
-          </div>
-        </div>
-      </section>
 
-      {/* ==================== CAPITAL COSTARRICENSE ==================== */}
-      <section className="relative z-10 py-28 px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="relative bg-gradient-to-br from-[#C9A227]/15 to-white/5 backdrop-blur-xl rounded-[2.5rem] border-2 border-[#C9A227]/30 p-12 md:p-16 text-center overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-[#E6BE4D]/10 rounded-full blur-3xl" />
-            <div className="relative">
-              <span className="inline-flex items-center gap-2 px-5 py-2 bg-[#C9A227]/20 border border-[#C9A227]/40 rounded-full text-[#E6BE4D] font-black text-sm tracking-wider mb-8">
-                🇨🇷 HECHO EN COSTA RICA
-              </span>
-              <h2 className="text-3xl md:text-5xl font-medium text-white mb-6 leading-[1.1]">
-                Capital <span className="italic text-[#E6BE4D]">100% costarricense</span>
-              </h2>
-              <p className="text-lg md:text-xl text-white/70 max-w-3xl mx-auto leading-relaxed">
-                Grupo Oroz es una empresa de capital costarricense, con raíces locales y equipos formados en el país. Generamos empleo en las comunidades donde operamos y reinvertimos en el turismo de Costa Rica. Lo que construimos, lo construimos aquí.
-              </p>
+            <p className="mx-auto mt-6 max-w-xl leading-relaxed text-white/55 text-pretty">
+              Nos ocupamos de todo lo que hay detrás: la seguridad, el mantenimiento, la
+              gente y cada visitante que llega.
+            </p>
+
+            <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <a
+                href="#parques"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-champagne px-7 py-3.5 text-sm font-semibold text-ink transition-colors hover:bg-white"
+              >
+                Ver nuestros parques
+                <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+              </a>
+              <a
+                href="#grupo"
+                className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/85 transition-colors hover:border-white/40 hover:text-white"
+              >
+                Conocer el grupo
+              </a>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ==================== PARQUES DE AVENTURA ==================== */}
-      <section id="parques" className="relative z-10 py-28 px-4 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <ZiplineDecor className="absolute top-20 left-10 w-72 h-32 text-[#C9A227]/20 rotate-6" />
-          <ZiplineDecor className="absolute bottom-32 right-16 w-64 h-28 text-[#E6BE4D]/20 -rotate-6" />
-        </div>
+        {/* ==================== QUIÉNES SOMOS ==================== */}
+        <section id="nosotros" className="relative z-10 px-5 py-28 sm:px-8 lg:py-36">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid items-start gap-16 lg:grid-cols-[1fr_1.1fr] lg:gap-24">
+              <Reveal>
+                <SectionHeading
+                  numero="01"
+                  eyebrow="Quiénes somos"
+                  titulo={
+                    <>
+                      Sabemos lo que cuesta mantener{" "}
+                      <em className="text-gold-light">un parque en pie</em>
+                    </>
+                  }
+                />
+                <div className="mt-8 space-y-5 text-lg leading-relaxed text-white/60 text-pretty">
+                  <p>
+                    Un parque de aventura no se sostiene solo con abrir las puertas. Detrás
+                    hay líneas que revisar, equipo que mantener, gente que capacitar y
+                    cientos de visitantes que atender bien cada día.
+                  </p>
+                  <p>
+                    Llevamos más de 20 años en eso. Lo conocemos desde adentro porque
+                    operamos nuestros propios parques, y esa experiencia es la que ponemos a
+                    trabajar en cada proyecto del grupo.
+                  </p>
+                </div>
+              </Reveal>
 
-        <div className="max-w-7xl mx-auto relative">
-          <div className="text-center mb-20">
-            <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
-              ADMINISTRACIÓN DE PARQUES
-            </span>
-            <h2 className="text-4xl md:text-6xl font-medium text-white mb-6">
-              Parques de <span className="text-[#E6BE4D]">Aventura</span>
-            </h2>
-            <p className="text-xl text-white/60 max-w-3xl mx-auto leading-relaxed">
-              Los parques que operamos y administramos directamente en Costa Rica, cada uno con estándares de seguridad ACCT y mantenimiento constante.
-            </p>
+              <Reveal delay={100}>
+                <dl className="grid gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 sm:grid-cols-2">
+                  {PILARES.map((pilar, i) => (
+                    <div key={pilar.titulo} className="bg-ink p-8">
+                      <span className="tabular mb-5 block text-xs font-semibold text-gold">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <dt className="mb-2.5 text-lg font-semibold text-white">
+                        {pilar.titulo}
+                      </dt>
+                      <dd className="leading-relaxed text-white/55 text-pretty">
+                        {pilar.desc}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </Reveal>
+            </div>
           </div>
+        </section>
 
-          {/* Logos de parques GRANDES */}
-          <div className="grid md:grid-cols-3 gap-10 mb-16">
-            {[
-              { nombre: "Skyline Canopy Tour", logo: SUPABASE_IMAGES.skyline, ubicacion: "Santa Cruz, Guanacaste", url: "https://www.skylinecanopytour.com" },
-              { nombre: "Ecoglide Arenal Park", logo: SUPABASE_IMAGES.ecoglide, ubicacion: "La Fortuna, San Carlos", url: "https://www.arenalecoglide.com" },
-              { nombre: "Poás Adventure Park", logo: SUPABASE_IMAGES.poas, ubicacion: "Poás, Alajuela", url: "#", proximamente: true }
-            ].map((parque, i) => (
-              <div key={i} className="group">
-                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C9A227]/20 overflow-hidden">
-                  {parque.proximamente && (
-                    <div className="absolute top-6 right-6 px-4 py-2 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 text-sm font-black rounded-full z-10">
-                      2026
+        {/* ==================== TRABAJO INTEGRAL ==================== */}
+        <section id="grupo" className="relative z-10 px-5 py-28 sm:px-8 lg:py-36">
+          <div className="mx-auto max-w-7xl">
+            <Reveal>
+              <SectionHeading
+                numero="02"
+                eyebrow="Trabajo integral"
+                align="center"
+                titulo={
+                  <>
+                    Todo lo que un parque necesita,{" "}
+                    <em className="text-gold-light">bajo un mismo techo</em>
+                  </>
+                }
+                descripcion="Operamos parques de aventura, pero también nos encargamos de lo que gira alrededor de ellos: la fotografía, el transporte, las reservas y hasta la construcción de los parques nuevos. Al tenerlo todo dentro del grupo, no dependemos de nadie más."
+              />
+            </Reveal>
+
+            <div className="mt-16 grid items-stretch gap-6 lg:grid-cols-3">
+              <Reveal className="lg:row-span-2">
+                <div className="flex h-full flex-col justify-center rounded-2xl border border-gold/25 bg-gradient-to-b from-gold-deep/25 to-transparent p-10">
+                  <span className="eyebrow mb-4 text-gold">El centro de todo</span>
+                  <h3 className="font-display mb-5 text-4xl text-white">Los parques</h3>
+                  <p className="text-lg leading-relaxed text-white/65 text-pretty">
+                    Nuestros canopy y parques de aventura. Todo lo demás existe para que
+                    funcionen bien y para que el visitante se lleve una gran experiencia.
+                  </p>
+                </div>
+              </Reveal>
+
+              {AREAS_APOYO.map((item, i) => (
+                <Reveal key={item.area} delay={60 * (i + 1)}>
+                  <Tarjeta className="h-full p-8">
+                    <div className="mb-3 flex items-baseline justify-between gap-4">
+                      <h3 className="text-lg font-semibold text-white">{item.area}</h3>
+                      <span className="whitespace-nowrap text-sm text-gold-light">
+                        {item.empresa}
+                      </span>
                     </div>
-                  )}
-                  <div className="p-10">
-                    <div className="relative h-48 w-full bg-white rounded-2xl shadow-xl mb-8">
-                      <Image src={parque.logo} alt={parque.nombre} fill className="object-contain p-6" />
+                    <p className="leading-relaxed text-white/55 text-pretty">{item.desc}</p>
+                  </Tarjeta>
+                </Reveal>
+              ))}
+            </div>
+
+            <Reveal>
+              <p className="mx-auto mt-14 max-w-2xl text-center font-display text-2xl leading-snug text-white/70 text-balance">
+                La ventaja de trabajar así es simple: la calidad la cuidamos nosotros, de
+                principio a fin.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        {/* ==================== CAPITAL COSTARRICENSE ==================== */}
+        <section className="relative z-10 px-5 py-20 sm:px-8">
+          <Reveal>
+            <div className="mx-auto max-w-5xl rounded-2xl border border-white/8 bg-surface/70 px-8 py-14 text-center backdrop-blur-sm sm:px-14">
+              <span className="eyebrow text-gold">Hecho en Costa Rica</span>
+              <h2 className="font-display mt-5 text-3xl text-white sm:text-4xl text-balance">
+                Capital <em className="text-gold-light">100% costarricense</em>
+              </h2>
+              <p className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-white/60 text-pretty">
+                Grupo Oroz es una empresa de capital costarricense, con raíces locales y
+                equipos formados en el país. Generamos empleo en las comunidades donde
+                operamos y reinvertimos en el turismo de Costa Rica. Lo que construimos, lo
+                construimos aquí.
+              </p>
+            </div>
+          </Reveal>
+        </section>
+
+        {/* ==================== PARQUES ==================== */}
+        <section id="parques" className="relative z-10 px-5 py-28 sm:px-8 lg:py-36">
+          <div className="mx-auto max-w-7xl">
+            <Reveal>
+              <SectionHeading
+                numero="03"
+                eyebrow="Administración de parques"
+                align="center"
+                titulo="Parques de aventura"
+                descripcion="Los parques que operamos y administramos directamente en Costa Rica, cada uno con estándares de seguridad ACCT y mantenimiento constante."
+              />
+            </Reveal>
+
+            <div className="mt-16 grid gap-6 md:grid-cols-3">
+              {PARQUES.map((parque, i) => (
+                <Reveal key={parque.nombre} delay={80 * i}>
+                  <Tarjeta className="group h-full overflow-hidden p-7">
+                    <div className="relative">
+                      <LogoPlaca src={parque.logo} alt={parque.nombre} className="h-44" />
+                      {parque.apertura && (
+                        <span className="absolute right-3 top-3 rounded-full bg-ink/85 px-3 py-1 text-xs font-semibold tracking-wide text-gold-light">
+                          {parque.apertura}
+                        </span>
+                      )}
                     </div>
-                    <h3 className="text-2xl font-black text-white mb-3">{parque.nombre}</h3>
-                    <div className="flex items-center text-white/50 mb-6">
-                      <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                      </svg>
+
+                    <h3 className="mt-7 text-xl font-semibold text-white">
+                      {parque.nombre}
+                    </h3>
+                    <p className="mt-2 flex items-center gap-1.5 text-sm text-white/45">
+                      <IconPin className="h-4 w-4 text-gold/70" />
                       {parque.ubicacion}
+                    </p>
+
+                    <div className="mt-6 border-t border-white/8 pt-5">
+                      {parque.url ? (
+                        <Link
+                          href={parque.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-sm font-medium text-gold-light transition-colors hover:text-champagne"
+                        >
+                          Visitar sitio web
+                          <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                        </Link>
+                      ) : (
+                        <span className="text-sm text-white/35">Próxima apertura</span>
+                      )}
                     </div>
-                    {!parque.proximamente ? (
-                      <Link href={parque.url} target="_blank" className="inline-flex items-center gap-2 text-[#E6BE4D] hover:text-[#FFD966] font-bold text-lg group/link">
-                        Visitar sitio web
-                        <svg className="w-5 h-5 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
-                      </Link>
-                    ) : (
-                      <span className="text-white/40 font-bold">Próximamente</span>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {[
-              { value: "+20", label: "Años de Experiencia" },
-              { value: "3", label: "Parques Administrados" },
-              { value: "ACCT", label: "Certificación Internacional" },
-              { value: "24/7", label: "Mantenimiento Continuo" }
-            ].map((stat, i) => (
-              <div key={i} className="text-center p-8 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
-                <div className="text-4xl md:text-5xl font-black text-[#E6BE4D] mb-2">{stat.value}</div>
-                <div className="text-white/60 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== AGENCIAS DE VIAJES ==================== */}
-      <section id="agencias" className="relative z-10 py-28 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
-              TURISMO Y VIAJES
-            </span>
-            <h2 className="text-4xl md:text-6xl font-medium text-white mb-6">
-              Agencias de <span className="text-[#E6BE4D]">Viajes</span>
-            </h2>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Nuestras agencias arman los recorridos y conectan a los viajeros con cada destino de Costa Rica.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-10">
-            {[
-              { nombre: "CR Doing", logo: SUPABASE_IMAGES.crDoing, desc: "Tours a la medida de cada viajero" },
-              { nombre: "CR Paradise", logo: SUPABASE_IMAGES.crParadise, desc: "Paquetes y experiencias por todo el país" },
-              { nombre: "GTT Tours", logo: SUPABASE_IMAGES.gttTours, desc: "Tours guiados con acompañamiento local" }
-            ].map((agencia, i) => (
-              <div key={i} className="group">
-                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-[#C9A227]/20 p-10">
-                  <div className="relative h-44 w-full bg-white rounded-2xl shadow-xl mb-8">
-                    <Image src={agencia.logo} alt={agencia.nombre} fill className="object-contain p-6" />
-                  </div>
-                  <h3 className="text-2xl font-black text-white mb-3 text-center">{agencia.nombre}</h3>
-                  <p className="text-white/50 text-center text-lg">{agencia.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== SERVICIOS: TRANSPORTE, TECNOLOGÍA, CONSTRUCCIÓN ==================== */}
-      <section id="servicios" className="relative z-10 py-28 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
-              ECOSISTEMA EMPRESARIAL
-            </span>
-            <h2 className="text-4xl md:text-6xl font-medium text-white mb-6">
-              Más <span className="text-[#E6BE4D]">Servicios</span>
-            </h2>
-            <p className="text-xl text-white/60 max-w-2xl mx-auto">
-              Las empresas de transporte, tecnología y construcción que sostienen la operación del grupo.
-            </p>
-          </div>
-
-          <div className="grid lg:grid-cols-3 gap-10">
-            {/* TRANSPORTE */}
-            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 p-10">
-              <div className="bg-gradient-to-br from-[#996515] to-[#E6BE4D] w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
-                <svg className="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 17h8M8 17a2 2 0 11-4 0 2 2 0 014 0zm8 0a2 2 0 104 0 2 2 0 00-4 0zm-8 0H5a2 2 0 01-2-2V6a2 2 0 012-2h9l5 5v6a2 2 0 01-2 2h-1" />
-                </svg>
-              </div>
-              <h3 className="text-3xl font-black text-white mb-4">Transporte</h3>
-              <p className="text-white/60 mb-8 text-lg leading-relaxed">
-                Transporte turístico para trasladar a los visitantes hacia cada parque y destino del país.
-              </p>
-              <div className="relative h-36 bg-white rounded-2xl shadow-xl">
-                <Image src={SUPABASE_IMAGES.cantWaitTravel} alt="Can't Wait Travel" fill className="object-contain p-4" />
-              </div>
-              <p className="text-[#E6BE4D] font-black text-xl mt-6 text-center">Can&apos;t Wait Travel</p>
+                  </Tarjeta>
+                </Reveal>
+              ))}
             </div>
 
-            {/* TECNOLOGÍA */}
-            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 p-10">
-              <div className="bg-gradient-to-br from-[#996515] to-[#E6BE4D] w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
-                <svg className="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                </svg>
-              </div>
-              <h3 className="text-3xl font-black text-white mb-4">Tecnología</h3>
-              <p className="text-white/60 mb-8 text-lg leading-relaxed">
-                Plataformas de reservas, pagos y gestión que mantienen la operación funcionando cada día.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="relative h-28 bg-white rounded-xl shadow-xl">
-                  <Image src={SUPABASE_IMAGES.maxDigital} alt="MaxDigital" fill className="object-contain p-4" />
-                </div>
-                <div className="relative h-28 bg-white rounded-xl shadow-xl">
-                  <Image src={SUPABASE_IMAGES.ruby} alt="Ruby" fill className="object-contain p-4" />
-                </div>
-              </div>
-              <p className="text-[#E6BE4D] font-black text-xl mt-6 text-center">MaxDigital & Ruby</p>
-            </div>
+            <Reveal>
+              <dl className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 md:grid-cols-4">
+                {INDICADORES.map((stat) => (
+                  <div key={stat.label} className="bg-ink px-6 py-10 text-center">
+                    <dt className="sr-only">{stat.label}</dt>
+                    <dd>
+                      <span className="tabular font-display block text-4xl text-champagne sm:text-5xl">
+                        {stat.value}
+                      </span>
+                      <span className="mt-3 block text-sm text-white/45">{stat.label}</span>
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
+        </section>
 
-            {/* CONSTRUCCIÓN */}
-            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 hover:border-[#C9A227]/60 transition-all duration-500 p-10">
-              <div className="bg-gradient-to-br from-[#996515] to-[#E6BE4D] w-20 h-20 rounded-2xl flex items-center justify-center mb-8">
-                <svg className="w-10 h-10 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                </svg>
-              </div>
-              <h3 className="text-3xl font-black text-white mb-4">Construcción de Parques</h3>
-              <p className="text-white/60 mb-8 text-lg leading-relaxed">
-                Diseño, construcción y certificación de canopy, desde la primera línea hasta la apertura del parque.
-              </p>
-              <div className="relative h-36 bg-white rounded-2xl shadow-xl">
-                <Image src={SUPABASE_IMAGES.adventuresDesigner} alt="Adventures Designer" fill className="object-contain p-4" />
-              </div>
-              <p className="text-[#E6BE4D] font-black text-xl mt-6 text-center">Adventures Designer</p>
+        {/* ==================== AGENCIAS ==================== */}
+        <section id="agencias" className="relative z-10 px-5 py-28 sm:px-8 lg:py-36">
+          <div className="mx-auto max-w-7xl">
+            <Reveal>
+              <SectionHeading
+                numero="04"
+                eyebrow="Turismo y viajes"
+                align="center"
+                titulo="Agencias de viajes"
+                descripcion="Nuestras agencias arman los recorridos y conectan a los viajeros con cada destino de Costa Rica."
+              />
+            </Reveal>
+
+            <div className="mt-16 grid gap-6 md:grid-cols-3">
+              {AGENCIAS.map((agencia, i) => (
+                <Reveal key={agencia.nombre} delay={80 * i}>
+                  <Tarjeta className="h-full p-7 text-center">
+                    <LogoPlaca src={agencia.logo} alt={agencia.nombre} className="h-40" />
+                    <h3 className="mt-7 text-xl font-semibold text-white">
+                      {agencia.nombre}
+                    </h3>
+                    <p className="mt-2 text-white/50">{agencia.desc}</p>
+                  </Tarjeta>
+                </Reveal>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ==================== OROSTUDIOSCR ==================== */}
-      <section id="orostudios" className="relative z-10 py-28 px-4 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#C9A227]/5 via-transparent to-[#C9A227]/5" />
-        <div className="absolute inset-0 pointer-events-none">
-          <CameraDecor className="absolute top-20 left-12 w-40 h-40 text-[#C9A227]/20 rotate-12" />
-          <CameraDecor className="absolute bottom-32 right-16 w-32 h-32 text-[#E6BE4D]/20 -rotate-12" />
-        </div>
+        {/* ==================== SERVICIOS ==================== */}
+        <section id="servicios" className="relative z-10 px-5 py-28 sm:px-8 lg:py-36">
+          <div className="mx-auto max-w-7xl">
+            <Reveal>
+              <SectionHeading
+                numero="05"
+                eyebrow="Ecosistema empresarial"
+                align="center"
+                titulo="Más servicios"
+                descripcion="Las empresas de transporte, tecnología y construcción que sostienen la operación del grupo."
+              />
+            </Reveal>
 
-        <div className="relative max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-20 items-center mb-24">
-            <div>
-              <span className="inline-flex items-center gap-2 text-[#E6BE4D] text-xs font-sans font-semibold tracking-[0.25em] uppercase mb-5 before:content-[''] before:w-8 before:h-px before:bg-[#E6BE4D]/60">
-                CONTENIDO FOTOGRÁFICO
-              </span>
-              <h2 className="text-4xl md:text-6xl font-medium text-white mb-8">
-                Orostudios<span className="text-[#E6BE4D]">CR</span>
-              </h2>
-              <p className="text-xl text-white/60 mb-10 leading-relaxed">
-                Es la rama del grupo dedicada a fotografía y video en parques de aventura. En más de 20 años ha trabajado con más de 18 parques en Costa Rica, capturando la experiencia de cada visitante y generando el contenido de cada marca.
-              </p>
-
-              <div className="grid grid-cols-3 gap-6 mb-10">
-                {[
-                  { value: '+3500', label: 'Nuevos Leads' },
-                  { value: '+50%', label: 'Ganancia Anual' },
-                  { value: '+1600', label: 'Seguidores' }
-                ].map((stat, i) => (
-                  <div key={i} className="text-center p-6 bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10">
-                    <div className="text-3xl md:text-4xl font-black text-[#E6BE4D]">{stat.value}</div>
-                    <div className="text-sm text-white/50 mt-2 font-bold uppercase tracking-wide">{stat.label}</div>
+            <div className="mt-16 grid gap-6 lg:grid-cols-3">
+              <Reveal>
+                <Tarjeta className="flex h-full flex-col p-8">
+                  <span className="eyebrow text-gold">Transporte</span>
+                  <h3 className="font-display mt-4 text-3xl text-white">
+                    Can&apos;t Wait Travel
+                  </h3>
+                  <p className="mt-4 mb-8 leading-relaxed text-white/55 text-pretty">
+                    Transporte turístico para trasladar a los visitantes hacia cada parque y
+                    destino del país.
+                  </p>
+                  <div className="mt-auto">
+                    <LogoPlaca
+                      src={SUPABASE_IMAGES.cantWaitTravel}
+                      alt="Can't Wait Travel"
+                      className="h-32"
+                    />
                   </div>
+                </Tarjeta>
+              </Reveal>
+
+              <Reveal delay={80}>
+                <Tarjeta className="flex h-full flex-col p-8">
+                  <span className="eyebrow text-gold">Tecnología</span>
+                  <h3 className="font-display mt-4 text-3xl text-white">MaxDigital y Ruby</h3>
+                  <p className="mt-4 mb-8 leading-relaxed text-white/55 text-pretty">
+                    Plataformas de reservas, pagos y gestión que mantienen la operación
+                    funcionando cada día.
+                  </p>
+                  <div className="mt-auto grid grid-cols-2 gap-4">
+                    <LogoPlaca
+                      src={SUPABASE_IMAGES.maxDigital}
+                      alt="MaxDigital"
+                      className="h-32"
+                    />
+                    <LogoPlaca src={SUPABASE_IMAGES.ruby} alt="Ruby" className="h-32" />
+                  </div>
+                </Tarjeta>
+              </Reveal>
+
+              <Reveal delay={160}>
+                <Tarjeta className="flex h-full flex-col p-8">
+                  <span className="eyebrow text-gold">Construcción</span>
+                  <h3 className="font-display mt-4 text-3xl text-white">
+                    Adventures Designer
+                  </h3>
+                  <p className="mt-4 mb-8 leading-relaxed text-white/55 text-pretty">
+                    Diseño, construcción y certificación de canopy, desde la primera línea
+                    hasta la apertura del parque.
+                  </p>
+                  <div className="mt-auto">
+                    <LogoPlaca
+                      src={SUPABASE_IMAGES.adventuresDesigner}
+                      alt="Adventures Designer"
+                      className="h-32"
+                    />
+                  </div>
+                </Tarjeta>
+              </Reveal>
+            </div>
+          </div>
+        </section>
+
+        {/* ==================== OROSTUDIOSCR ==================== */}
+        <section id="orostudios" className="relative z-10 px-5 py-28 sm:px-8 lg:py-36">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid items-center gap-16 lg:grid-cols-[1.15fr_1fr] lg:gap-24">
+              <Reveal>
+                <SectionHeading
+                  numero="06"
+                  eyebrow="Contenido fotográfico"
+                  titulo="OrostudiosCR"
+                />
+                <p className="mt-8 text-lg leading-relaxed text-white/60 text-pretty">
+                  Es la rama del grupo dedicada a fotografía y video en parques de aventura.
+                  En más de 20 años ha trabajado con más de 18 parques en Costa Rica,
+                  capturando la experiencia de cada visitante y generando el contenido de
+                  cada marca.
+                </p>
+
+                <dl className="mt-10 grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8">
+                  {[
+                    { value: "+3500", label: "Nuevos leads" },
+                    { value: "+50%", label: "Ganancia anual" },
+                    { value: "+1600", label: "Seguidores" },
+                  ].map((stat) => (
+                    <div key={stat.label} className="bg-ink px-4 py-7 text-center">
+                      <dt className="sr-only">{stat.label}</dt>
+                      <dd>
+                        <span className="tabular font-display block text-3xl text-champagne sm:text-4xl">
+                          {stat.value}
+                        </span>
+                        <span className="mt-2 block text-xs text-white/45">{stat.label}</span>
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+
+                <Link
+                  href="https://www.orostudioscr.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group mt-10 inline-flex items-center gap-2 rounded-full border border-gold/40 px-7 py-3.5 text-sm font-semibold text-gold-light transition-colors hover:border-gold hover:bg-gold/10"
+                >
+                  Conocer OrostudiosCR
+                  <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+              </Reveal>
+
+              <Reveal delay={100}>
+                <div className="rounded-2xl border border-white/8 bg-surface/70 p-10 backdrop-blur-sm">
+                  <LogoPlaca
+                    src={SUPABASE_IMAGES.orostudios}
+                    alt="OrostudiosCR"
+                    className="h-56"
+                  />
+                </div>
+              </Reveal>
+            </div>
+
+            {/* ---------- Oficinas en operación ---------- */}
+            <div className="mt-28">
+              <Reveal>
+                <div className="text-center">
+                  <span className="eyebrow inline-flex items-center gap-2 text-gold">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" aria-hidden="true" />
+                    En operación
+                  </span>
+                  <h3 className="font-display mt-5 text-3xl text-white sm:text-4xl">
+                    Nuestras oficinas
+                  </h3>
+                  <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-white/50 text-pretty">
+                    Oficinas fotográficas de OrostudiosCR instaladas dentro de los parques,
+                    atendidas por nuestro propio equipo.
+                  </p>
+                </div>
+              </Reveal>
+
+              <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {OFICINAS_ACTIVAS.map((oficina, i) => (
+                  <Reveal key={oficina.nombre} delay={70 * i} className="h-full">
+                    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/8 bg-surface/80 backdrop-blur-sm transition-colors duration-300 hover:border-gold/40">
+                      <div className="relative aspect-[4/3] overflow-hidden bg-ink">
+                        <Image
+                          src={oficina.foto}
+                          alt={`Oficina de OrostudiosCR en ${oficina.nombre}`}
+                          fill
+                          sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 31vw"
+                          className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        />
+                        <div
+                          className="absolute inset-0 bg-gradient-to-t from-ink/70 via-transparent to-transparent"
+                          aria-hidden="true"
+                        />
+                        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-emerald-500/95 px-2.5 py-1 text-[11px] font-semibold text-emerald-950">
+                          <span
+                            className="h-1.5 w-1.5 rounded-full bg-emerald-950"
+                            aria-hidden="true"
+                          />
+                          En operación
+                        </span>
+                      </div>
+
+                      <div className="flex flex-1 flex-col p-6">
+                        <h4 className="text-lg font-semibold text-white">{oficina.nombre}</h4>
+                        <p className="mt-2 flex items-center gap-1.5 text-sm text-white/45">
+                          <IconPin className="h-4 w-4 text-gold/70" />
+                          {oficina.ubicacion}
+                        </p>
+                        <p className="mt-4 leading-relaxed text-white/55 text-pretty">
+                          {oficina.desc}
+                        </p>
+
+                        <ul className="mt-auto flex flex-wrap gap-x-5 gap-y-2 border-t border-white/8 pt-5">
+                          {OFICINA_BENEFICIOS.map((beneficio) => (
+                            <li
+                              key={beneficio}
+                              className="flex items-center gap-1.5 text-sm text-white/45"
+                            >
+                              <IconCheck className="h-3.5 w-3.5 text-gold" />
+                              {beneficio}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </article>
+                  </Reveal>
                 ))}
               </div>
 
-              <Link href="https://www.orostudioscr.com" target="_blank"
-                    className="bg-gradient-to-r from-[#996515] via-[#C9A227] to-[#E6BE4D] hover:shadow-xl hover:shadow-[#C9A227]/30 inline-flex items-center gap-3 px-8 py-4 text-slate-950 font-black text-lg rounded-2xl transition-all duration-300 hover:scale-105">
-                Conocer más
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </div>
+              {/* ---------- Próximas aperturas ---------- */}
+              <Reveal>
+                <div className="mt-20">
+                  <div className="mb-10 flex items-center gap-5">
+                    <span className="h-px flex-1 bg-white/8" aria-hidden="true" />
+                    <span className="eyebrow whitespace-nowrap text-gold">
+                      Próximamente
+                    </span>
+                    <span className="h-px flex-1 bg-white/8" aria-hidden="true" />
+                  </div>
 
-            <div className="relative">
-              <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-[2rem] border-2 border-white/10 p-12">
-                <div className="relative h-64 w-full bg-white rounded-2xl shadow-xl">
-                  <Image src={SUPABASE_IMAGES.orostudios} alt="OrostudiosCR Logo" fill className="object-contain p-6" />
+                  <div className="text-center">
+                    <h4 className="font-display text-3xl text-white">Próximas aperturas</h4>
+                    <p className="mx-auto mt-4 max-w-xl text-white/50 text-pretty">
+                      Parques donde ya estamos preparando la instalación de nuestra oficina
+                      fotográfica.
+                    </p>
+                  </div>
+
+                  <ul className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
+                    {OFICINAS_PROXIMAS.map((oficina) => (
+                      <li
+                        key={oficina.nombre}
+                        className="flex items-center gap-5 rounded-2xl border border-white/8 bg-surface/60 p-5 backdrop-blur-sm"
+                      >
+                        <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-white/8 bg-ink">
+                          {oficina.logo ? (
+                            <Image
+                              src={oficina.logo}
+                              alt={oficina.nombre}
+                              fill
+                              sizes="64px"
+                              className="object-contain p-2 opacity-70"
+                            />
+                          ) : (
+                            <span className="flex h-full w-full items-center justify-center text-gold/60">
+                              <IconPin className="h-6 w-6" />
+                            </span>
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <span className="inline-block rounded-full border border-gold/40 px-2.5 py-0.5 text-[10px] font-semibold tracking-[0.14em] text-gold-light uppercase">
+                            Próximamente
+                          </span>
+                          <p className="mt-2 truncate font-semibold text-white">
+                            {oficina.nombre}
+                          </p>
+                          <p className="mt-1 flex items-center gap-1.5 text-sm text-white/40">
+                            <IconPin className="h-3.5 w-3.5 text-gold/60" />
+                            {oficina.ubicacion}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </div>
+              </Reveal>
             </div>
           </div>
+        </section>
 
-          {/* Oficinas */}
-          <div>
-            <h3 className="text-3xl md:text-4xl font-black text-white text-center mb-4">Nuestras Oficinas</h3>
-            <p className="text-white/50 text-center max-w-2xl mx-auto mb-12">Presencia actual de OrostudiosCR y las próximas aperturas en el país.</p>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {oficinasOrostudios.map((oficina, index) => (
-                <div key={index}
-                     className={`relative bg-white/5 backdrop-blur-xl rounded-2xl overflow-hidden border-2 transition-all duration-500 ${
-                       oficina.activa ? 'border-[#C9A227]/50 hover:border-[#E6BE4D] hover:-translate-y-2' : 'border-white/10 opacity-60'
-                     }`}>
-                  <div className="relative h-40 bg-gradient-to-br from-white/10 to-white/5 overflow-hidden">
-                    {oficina.foto ? (
-                      <>
-                        <Image src={oficina.foto} alt={oficina.nombre} fill className="object-cover" />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent" />
-                      </>
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-[#E6BE4D] font-bold">Próximamente</span>
-                      </div>
-                    )}
-                    {oficina.proximamente && (
-                      <div className="absolute top-3 right-3 px-3 py-1 bg-gradient-to-r from-[#996515] to-[#E6BE4D] text-slate-950 text-xs font-black rounded-full">2026</div>
-                    )}
-                  </div>
-                  <div className="p-5">
-                    <h4 className="text-white font-black mb-2">{oficina.nombre}</h4>
-                    <p className="text-white/50 text-sm">{oficina.ubicacion}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ==================== FOOTER ==================== */}
-      <footer id="contacto" className="relative z-10 border-t border-white/10 py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            <div>
-              <div className="relative h-20 w-52 mb-6">
-                <Image src={SUPABASE_IMAGES.mainLogo} alt="Grupo Oroz CR" fill className="object-contain" />
-              </div>
-              <p className="text-white/50 mb-6 leading-relaxed">
-                Grupo de capital costarricense dedicado a operar y administrar parques de aventura en Costa Rica.
+        {/* ==================== CONTACTO ==================== */}
+        <section id="contacto" className="relative z-10 px-5 py-28 sm:px-8">
+          <Reveal>
+            <div className="mx-auto max-w-5xl rounded-2xl border border-white/8 bg-surface/70 px-8 py-16 text-center backdrop-blur-sm sm:px-14">
+              <span className="eyebrow text-gold">Hablemos</span>
+              <h2 className="font-display mt-5 text-3xl text-white sm:text-5xl text-balance">
+                ¿Tiene un parque que necesita <em className="text-gold-light">buena mano</em>?
+              </h2>
+              <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/60 text-pretty">
+                Operación, seguridad, mantenimiento, fotografía o construcción. Cuéntenos
+                qué necesita y le respondemos con una propuesta concreta.
               </p>
-              <p className="text-white/70 font-bold">gabrielorozco@grupooroz.com</p>
-              <p className="text-[#E6BE4D] font-black text-xl">+506 6098 2244</p>
+
+              <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <a
+                  href={`mailto:${CONTACTO.email}`}
+                  className="inline-flex items-center justify-center rounded-full bg-champagne px-7 py-3.5 text-sm font-semibold text-ink transition-colors hover:bg-white"
+                >
+                  Escribir un correo
+                </a>
+                <a
+                  href={CONTACTO.whatsapp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/85 transition-colors hover:border-white/40 hover:text-white"
+                >
+                  Escribir por WhatsApp
+                </a>
+              </div>
+
+              <p className="mt-8 text-sm text-white/40">
+                <a href={`mailto:${CONTACTO.email}`} className="hover:text-white/70">
+                  {CONTACTO.email}
+                </a>
+                <span className="mx-3 text-white/20">·</span>
+                <a href={`tel:${CONTACTO.telefonoHref}`} className="hover:text-white/70">
+                  {CONTACTO.telefono}
+                </a>
+              </p>
             </div>
-            <div>
-              <h3 className="text-white font-black uppercase tracking-wider mb-6">Parques</h3>
-              <ul className="space-y-3">
-                <li><a href="https://www.skylinecanopytour.com" target="_blank" className="text-[#E6BE4D] hover:text-[#FFD966] font-bold">Skyline Canopy Tour</a></li>
-                <li><a href="https://www.arenalecoglide.com" target="_blank" className="text-[#E6BE4D] hover:text-[#FFD966] font-bold">Ecoglide Arenal Park</a></li>
-                <li><span className="text-white/30">Poás Adventure Park (2026)</span></li>
-              </ul>
+          </Reveal>
+        </section>
+
+        {/* ==================== FOOTER ==================== */}
+        <footer className="relative z-10 border-t border-white/8 px-5 py-16 sm:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
+              <div className="lg:pr-8">
+                <div className="relative h-14 w-40">
+                  <Image
+                    src={SUPABASE_IMAGES.mainLogo}
+                    alt="Grupo Oroz"
+                    fill
+                    sizes="160px"
+                    className="object-contain object-left"
+                  />
+                </div>
+                <p className="mt-6 leading-relaxed text-white/45 text-pretty">
+                  Grupo de capital costarricense dedicado a operar y administrar parques de
+                  aventura en Costa Rica.
+                </p>
+              </div>
+
+              <div>
+                <h3 className="eyebrow mb-5 text-white/40">Parques</h3>
+                <ul className="space-y-3 text-white/60">
+                  <li>
+                    <a
+                      href="https://www.skylinecanopytour.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-champagne"
+                    >
+                      Skyline Canopy Tour
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.arenalecoglide.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-champagne"
+                    >
+                      Ecoglide Arenal Park
+                    </a>
+                  </li>
+                  <li className="text-white/30">Poás Adventure Park (2026)</li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="eyebrow mb-5 text-white/40">Agencias</h3>
+                <ul className="space-y-3 text-white/60">
+                  {AGENCIAS.map((a) => (
+                    <li key={a.nombre}>{a.nombre}</li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="eyebrow mb-5 text-white/40">Servicios</h3>
+                <ul className="space-y-3 text-white/60">
+                  <li>Can&apos;t Wait Travel</li>
+                  <li>MaxDigital y Ruby</li>
+                  <li>Adventures Designer</li>
+                  <li>
+                    <a
+                      href="https://www.orostudioscr.com"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-champagne"
+                    >
+                      OrostudiosCR
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div>
-              <h3 className="text-white font-black uppercase tracking-wider mb-6">Agencias</h3>
-              <ul className="space-y-3 text-white/50">
-                <li>CR Doing</li>
-                <li>CR Paradise</li>
-                <li>GTT Tours</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-white font-black uppercase tracking-wider mb-6">Servicios</h3>
-              <ul className="space-y-3">
-                <li className="text-white/50">Can&apos;t Wait Travel</li>
-                <li className="text-white/50">MaxDigital & Ruby</li>
-                <li className="text-white/50">Adventures Designer</li>
-                <li><a href="https://www.orostudioscr.com" target="_blank" className="text-[#E6BE4D] hover:text-[#FFD966] font-bold">OrostudiosCR</a></li>
-              </ul>
+
+            <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/8 pt-8 text-sm text-white/35 sm:flex-row">
+              <p>&copy; {new Date().getFullYear()} Grupo Oroz. Todos los derechos reservados.</p>
+              <p>San José, Costa Rica</p>
             </div>
           </div>
-          <div className="border-t border-white/10 pt-8 text-center text-white/40">
-            <p>&copy; 2026 Grupo Oroz CR. Todos los derechos reservados.</p>
-          </div>
-        </div>
-      </footer>
-    </main>
+        </footer>
+      </main>
+    </>
   );
 }
