@@ -1,70 +1,188 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Tokens de marca — derivados del oro metálico del logotipo
+   ============================================================ */
 :root {
-  --font-sans: var(--font-sans), "Inter", system-ui, sans-serif;
-  --font-display: var(--font-display), "Fraunces", Georgia, serif;
+  /* Las variables *-src las inyecta next/font en <html>. Nunca redefinir
+     --font-sans/--font-display en términos de sí mismas: la referencia
+     circular invalida la variable y el navegador cae al font por defecto. */
+  --font-sans: var(--font-sans-src), "Inter Tight", system-ui, sans-serif;
+  --font-display: var(--font-display-src), "Instrument Serif", Georgia, serif;
+
+  --ink: #0b0b0c;          /* fondo base */
+  --surface: #121214;      /* tarjetas */
+  --surface-2: #17171a;    /* tarjetas elevadas */
+  --hairline: rgba(255, 255, 255, 0.09);
+
+  --gold-deep: #8a6a1e;
+  --gold: #c9a227;
+  --gold-light: #e3c56a;
+  --champagne: #f2e6c4;
+}
+
+@theme {
+  --font-display: var(--font-display-src), "Instrument Serif", Georgia, serif;
+  --font-sans: var(--font-sans-src), "Inter Tight", system-ui, sans-serif;
+
+  --color-ink: #0b0b0c;
+  --color-surface: #121214;
+  --color-surface-2: #17171a;
+  --color-gold-deep: #8a6a1e;
+  --color-gold: #c9a227;
+  --color-gold-light: #e3c56a;
+  --color-champagne: #f2e6c4;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
 }
 
 body {
   font-family: var(--font-sans);
-  background-color: #0a0a0b;
-  color: #f5f5f4;
+  background-color: var(--ink);
+  color: #ededed;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "cv11" 1;
 }
 
-/* Titulares con la serif editorial */
-h1, h2, h3, h4, h5, h6, .font-display {
+/* La serif sólo se aplica donde se pide explícitamente (.font-display),
+   para que los titulares de tarjeta puedan usar la grotesca. */
+.font-display {
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+
+.font-display em,
+.font-display .italic {
+  font-style: italic;
+}
+
+/* Cifras alineadas en indicadores y tablas */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
-  .font-sans {
-    font-family: var(--font-sans);
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* Ojo de sección: mayúsculas espaciadas */
+  .eyebrow {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+  .hairline {
+    border-color: var(--hairline);
+  }
+  /* Degradado dorado sólo para filetes y bordes, nunca para texto */
+  .rule-gold {
+    background-image: linear-gradient(
+      90deg,
+      transparent,
+      var(--gold) 25%,
+      var(--gold-light) 50%,
+      var(--gold) 75%,
+      transparent
+    );
   }
 }
 
-/* Variables de tema */
-@theme {
-  --font-display: var(--font-display);
-  --font-sans: var(--font-sans);
+/* ============================================================
+   Accesibilidad
+   ============================================================ */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.75rem 1.25rem;
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 600;
+  border-radius: 0 0 0.5rem 0;
+}
+.skip-link:focus {
+  left: 0;
 }
 
-/* Smooth scroll */
-html {
-  scroll-behavior: smooth;
+:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-/* Selección de texto en dorado */
 ::selection {
-  background-color: #E6BE4D;
-  color: #0a0a0b;
+  background-color: var(--gold);
+  color: var(--ink);
 }
 
-/* Scrollbar sutil */
+/* ============================================================
+   Scrollbar
+   ============================================================ */
 ::-webkit-scrollbar {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0b;
+  background: var(--ink);
 }
 ::-webkit-scrollbar-thumb {
-  background: #3f3f46;
-  border-radius: 6px;
+  background: #2e2e33;
+  border-radius: 99px;
+  border: 2px solid var(--ink);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #C9A227;
+  background: var(--gold-deep);
 }
 
-/* Animaciones */
-@keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
+/* ============================================================
+   Movimiento — discreto y respetuoso de la preferencia del sistema
+   ============================================================ */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
-.animate-fade-in-up {
-  animation: fade-in-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+
+.reveal {
+  opacity: 0;
+}
+.reveal.is-visible {
+  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  .reveal.is-visible {
+    opacity: 1;
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
