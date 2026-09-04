@@ -7,6 +7,8 @@ import type {
   NavId,
   OficinaId,
   PilarId,
+  TipoPropiedadId,
+  VentajaId,
 } from "./content";
 
 /**
@@ -97,6 +99,21 @@ export type Dictionary = {
       badge: string;
     };
   };
+  bienesRaices: {
+    eyebrow: string;
+    titulo: [string, string];
+    lema: string;
+    texto: string;
+    ventajasTitulo: string;
+    ventajas: Record<VentajaId, { titulo: string; desc: string }>;
+    tiposTitulo: string;
+    tipos: Record<TipoPropiedadId, string>;
+    cobertura: string;
+    cta: string;
+    ctaWhatsapp: string;
+    director: string;
+    empresaGrupo: string;
+  };
   contacto: {
     eyebrow: string;
     titulo: [string, string];
@@ -109,6 +126,7 @@ export type Dictionary = {
     parques: string;
     agencias: string;
     servicios: string;
+    bienesRaices: string;
     poas: string;
     derechos: string;
   };
@@ -118,7 +136,7 @@ const es: Dictionary = {
   meta: {
     title: "Grupo Oroz — Operación y administración de parques de aventura en Costa Rica",
     description:
-      "Grupo de capital costarricense dedicado a operar y administrar parques de aventura. Turismo, fotografía, transporte, tecnología y construcción, todo bajo un mismo grupo.",
+      "Grupo de capital costarricense dedicado a operar y administrar parques de aventura. Turismo, fotografía, transporte, tecnología, construcción y bienes raíces, todo bajo un mismo grupo.",
     ogTitle: "Grupo Oroz — Parques de aventura en Costa Rica",
   },
   a11y: {
@@ -134,6 +152,7 @@ const es: Dictionary = {
     agencias: "Agencias",
     servicios: "Servicios",
     orostudios: "OrostudiosCR",
+    bienesraices: "Bienes raíces",
     contacto: "Contacto",
   },
   hero: {
@@ -287,6 +306,43 @@ const es: Dictionary = {
       badge: "Próximamente",
     },
   },
+  bienesRaices: {
+    eyebrow: "Bienes raíces",
+    titulo: ["Su aliado de confianza en ", "bienes raíces"],
+    lema: "Lotes, casas y propiedades al mejor precio, en todo Costa Rica.",
+    texto:
+      "Oroz Real Estate es la correduría inmobiliaria del grupo. Ayuda a familias e inversionistas a encontrar la propiedad ideal y acompaña cada compra de principio a fin: desde la primera visita hasta la firma ante notario y la inscripción en el Registro Nacional. Como abogados, revisamos escritura, gravámenes, planos y permisos antes de cerrar. Todo transparente.",
+    ventajasTitulo: "Por qué comprar con nosotros",
+    ventajas: {
+      juridica: {
+        titulo: "Seguridad jurídica",
+        desc: "Estudio registral completo de cada propiedad. Su inversión queda inscrita y protegida por ley.",
+      },
+      extranjeros: {
+        titulo: "Extranjeros con plenos derechos",
+        desc: "En Costa Rica un extranjero puede comprar con los mismos derechos que un costarricense, sin residencia.",
+      },
+      plusvalia: {
+        titulo: "Plusvalía en crecimiento",
+        desc: "El valor de la tierra crece de forma sostenida, sobre todo en zonas turísticas y de desarrollo.",
+      },
+      acompanamiento: {
+        titulo: "Acompañamiento personal",
+        desc: "Coordinamos las visitas, resolvemos sus dudas y firmamos el traspaso ante notario.",
+      },
+    },
+    tiposTitulo: "Qué ofrecemos",
+    tipos: {
+      casas: "Casas",
+      lotes: "Lotes",
+      fincas: "Fincas",
+    },
+    cobertura: "En las siete provincias de Costa Rica",
+    cta: "Ver propiedades disponibles",
+    ctaWhatsapp: "Hablar con Gabriel",
+    director: "Director",
+    empresaGrupo: "Una empresa de Grupo Oroz",
+  },
   contacto: {
     eyebrow: "Hablemos",
     titulo: ["¿Tiene un parque que necesita ", "buena mano"],
@@ -301,6 +357,7 @@ const es: Dictionary = {
     parques: "Parques",
     agencias: "Agencias",
     servicios: "Servicios",
+    bienesRaices: "Bienes raíces",
     poas: "Poás Adventure Park (2026)",
     derechos: "Todos los derechos reservados.",
   },
@@ -310,7 +367,7 @@ const en: Dictionary = {
   meta: {
     title: "Grupo Oroz — Adventure park operation and management in Costa Rica",
     description:
-      "A Costa Rican-owned group that operates and manages adventure parks. Tourism, photography, transport, technology and construction, all under one roof.",
+      "A Costa Rican-owned group that operates and manages adventure parks. Tourism, photography, transport, technology, construction and real estate, all under one roof.",
     ogTitle: "Grupo Oroz — Adventure parks in Costa Rica",
   },
   a11y: {
@@ -326,6 +383,7 @@ const en: Dictionary = {
     agencias: "Agencies",
     servicios: "Services",
     orostudios: "OrostudiosCR",
+    bienesraices: "Real estate",
     contacto: "Contact",
   },
   hero: {
@@ -480,6 +538,43 @@ const en: Dictionary = {
       badge: "Coming soon",
     },
   },
+  bienesRaices: {
+    eyebrow: "Real estate",
+    titulo: ["Your trusted ally in ", "Costa Rican real estate"],
+    lema: "Lots, houses and properties at the best price, anywhere in Costa Rica.",
+    texto:
+      "Oroz Real Estate is the group's real estate brokerage. It helps families and investors find the right property and stays with them through the whole purchase: from the first visit to signing before a notary and recording the title in the National Registry. As lawyers, we review the deed, liens, survey plans and permits before closing. Fully transparent.",
+    ventajasTitulo: "Why buy with us",
+    ventajas: {
+      juridica: {
+        titulo: "Legal certainty",
+        desc: "A full title search on every property. Your investment is recorded and protected by law.",
+      },
+      extranjeros: {
+        titulo: "Full rights for foreigners",
+        desc: "In Costa Rica a foreigner can buy with the same rights as a citizen, no residency required.",
+      },
+      plusvalia: {
+        titulo: "Growing land value",
+        desc: "Land values rise steadily, especially in tourist and developing areas.",
+      },
+      acompanamiento: {
+        titulo: "Personal guidance",
+        desc: "We arrange the visits, answer your questions and sign the transfer before a notary.",
+      },
+    },
+    tiposTitulo: "What we offer",
+    tipos: {
+      casas: "Houses",
+      lotes: "Lots",
+      fincas: "Farms & acreage",
+    },
+    cobertura: "Across all seven provinces of Costa Rica",
+    cta: "Browse available properties",
+    ctaWhatsapp: "Talk to Gabriel",
+    director: "Director",
+    empresaGrupo: "A Grupo Oroz company",
+  },
   contacto: {
     eyebrow: "Let's talk",
     titulo: ["Have a park that needs ", "a steady hand"],
@@ -494,6 +589,7 @@ const en: Dictionary = {
     parques: "Parks",
     agencias: "Agencies",
     servicios: "Services",
+    bienesRaices: "Real estate",
     poas: "Poás Adventure Park (2026)",
     derechos: "All rights reserved.",
   },
