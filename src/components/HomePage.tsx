@@ -19,6 +19,9 @@ import {
   OROSTUDIOS_METRICAS,
   PARQUES,
   PILAR_IDS,
+  REAL_ESTATE,
+  TIPO_PROPIEDAD_IDS,
+  VENTAJA_IDS,
 } from "@/lib/content";
 import { getDictionary } from "@/lib/dictionaries";
 import type { Locale } from "@/lib/i18n";
@@ -680,6 +683,130 @@ export default function HomePage({ lang }: { lang: Locale }) {
           </div>
         </section>
 
+        {/* ==================== BIENES RAÍCES ==================== */}
+        <section id="bienesraices" className="relative z-10 px-5 py-28 sm:px-8 lg:py-36">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid items-center gap-16 lg:grid-cols-[1fr_1.15fr] lg:gap-24">
+              {/* Logotipo: dorado sobre fondo oscuro, como la marca del grupo */}
+              <Reveal className="order-last lg:order-first">
+                <a
+                  href={REAL_ESTATE.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${REAL_ESTATE.nombre} — ${REAL_ESTATE.dominio}`}
+                  className="group relative block overflow-hidden rounded-2xl border border-gold/25 bg-gradient-to-b from-gold-deep/20 via-surface/80 to-surface/80 p-10 backdrop-blur-sm transition-colors duration-300 hover:border-gold/50 sm:p-14"
+                >
+                  <div
+                    className="pointer-events-none absolute inset-x-0 top-0 h-2/3 bg-[radial-gradient(ellipse_at_top,rgba(201,162,39,0.22),transparent_65%)]"
+                    aria-hidden="true"
+                  />
+                  <div className="relative aspect-[3/2] w-full">
+                    <Image
+                      src={REAL_ESTATE.logo}
+                      alt={REAL_ESTATE.nombre}
+                      fill
+                      sizes="(max-width: 1024px) 88vw, 520px"
+                      className="object-contain drop-shadow-[0_8px_30px_rgba(201,162,39,0.25)] transition-transform duration-700 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <div className="relative mt-8 flex items-center justify-between gap-4 border-t border-white/8 pt-6 text-sm">
+                    <span className="text-white/45">{t.bienesRaices.empresaGrupo}</span>
+                    <span className="inline-flex items-center gap-2 font-medium text-gold-light transition-colors group-hover:text-champagne">
+                      {REAL_ESTATE.dominio}
+                      <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
+                </a>
+              </Reveal>
+
+              <Reveal delay={100}>
+                <SectionHeading
+                  numero="07"
+                  eyebrow={t.bienesRaices.eyebrow}
+                  titulo={
+                    <>
+                      {t.bienesRaices.titulo[0]}
+                      <em className="text-gold-light">{t.bienesRaices.titulo[1]}</em>
+                    </>
+                  }
+                />
+                <p className="mt-8 font-display text-2xl leading-snug text-champagne text-balance">
+                  {t.bienesRaices.lema}
+                </p>
+                <p className="mt-5 text-lg leading-relaxed text-white/60 text-pretty">
+                  {t.bienesRaices.texto}
+                </p>
+
+                {/* Tipos de propiedad y cobertura */}
+                <div className="mt-8 flex flex-wrap items-center gap-2">
+                  <span className="sr-only">{t.bienesRaices.tiposTitulo}</span>
+                  {TIPO_PROPIEDAD_IDS.map((id) => (
+                    <span
+                      key={id}
+                      className="rounded-full border border-gold/40 px-3.5 py-1 text-xs font-semibold tracking-[0.12em] text-gold-light uppercase"
+                    >
+                      {t.bienesRaices.tipos[id]}
+                    </span>
+                  ))}
+                  <span className="ml-1 inline-flex items-center gap-1.5 text-sm text-white/45">
+                    <IconPin className="h-4 w-4 text-gold/70" />
+                    {t.bienesRaices.cobertura}
+                  </span>
+                </div>
+
+                <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    href={REAL_ESTATE.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group inline-flex items-center justify-center gap-2 rounded-full bg-champagne px-7 py-3.5 text-sm font-semibold text-ink transition-colors hover:bg-white"
+                  >
+                    {t.bienesRaices.cta}
+                    <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                  <a
+                    href={REAL_ESTATE.whatsapp}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center rounded-full border border-white/20 px-7 py-3.5 text-sm font-medium text-white/85 transition-colors hover:border-white/40 hover:text-white"
+                  >
+                    {t.bienesRaices.ctaWhatsapp}
+                  </a>
+                </div>
+
+                <p className="mt-6 text-sm text-white/40">
+                  <span className="text-white/60">{REAL_ESTATE.director}</span>
+                  <span className="mx-2 text-white/20">·</span>
+                  {t.bienesRaices.director}
+                  <span className="mx-2 text-white/20">·</span>
+                  <a href={`tel:${REAL_ESTATE.telefonoHref}`} className="hover:text-white/70">
+                    {REAL_ESTATE.telefono}
+                  </a>
+                </p>
+              </Reveal>
+            </div>
+
+            {/* ---------- Ventajas de comprar en Costa Rica ---------- */}
+            <Reveal>
+              <dl className="mt-16 grid gap-px overflow-hidden rounded-2xl border border-white/8 bg-white/8 sm:grid-cols-2 lg:grid-cols-4">
+                {VENTAJA_IDS.map((id, i) => (
+                  <div key={id} className="bg-ink p-8">
+                    <span className="tabular mb-5 block text-xs font-semibold text-gold">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <dt className="mb-2.5 text-lg font-semibold text-white">
+                      {t.bienesRaices.ventajas[id].titulo}
+                    </dt>
+                    <dd className="leading-relaxed text-white/55 text-pretty">
+                      {t.bienesRaices.ventajas[id].desc}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </Reveal>
+          </div>
+        </section>
+
         {/* ==================== CONTACTO ==================== */}
         <section id="contacto" className="relative z-10 px-5 py-28 sm:px-8">
           <Reveal>
@@ -726,8 +853,8 @@ export default function HomePage({ lang }: { lang: Locale }) {
         {/* ==================== FOOTER ==================== */}
         <footer className="relative z-10 border-t border-white/8 px-5 py-16 sm:px-8">
           <div className="mx-auto max-w-7xl">
-            <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
-              <div className="lg:pr-8">
+            <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-[1.7fr_1fr_1fr_1fr_1fr]">
+              <div className="md:col-span-2 lg:col-span-1 lg:pr-8">
                 <div className="relative h-14 w-40">
                   <Image
                     src={SUPABASE_IMAGES.mainLogo}
@@ -800,6 +927,30 @@ export default function HomePage({ lang }: { lang: Locale }) {
                       className="transition-colors hover:text-champagne"
                     >
                       OrostudiosCR
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="eyebrow mb-5 text-white/40">{t.footer.bienesRaices}</h3>
+                <ul className="space-y-3 text-white/60">
+                  <li>
+                    <a
+                      href={REAL_ESTATE.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-champagne"
+                    >
+                      {REAL_ESTATE.nombre}
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={`mailto:${REAL_ESTATE.email}`}
+                      className="text-sm transition-colors hover:text-champagne"
+                    >
+                      {REAL_ESTATE.email}
                     </a>
                   </li>
                 </ul>

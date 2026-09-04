@@ -20,6 +20,7 @@ export const NAV_IDS = [
   "agencias",
   "servicios",
   "orostudios",
+  "bienesraices",
   "contacto",
 ] as const;
 export type NavId = (typeof NAV_IDS)[number];
@@ -144,6 +145,28 @@ export const OFICINAS_PROXIMAS: readonly OficinaProxima[] = [
   { nombre: "Poas Adventure Park", ubicacion: "Poás, Alajuela", logo: SUPABASE_IMAGES.poas },
   { nombre: "Brisas de la Jungla", ubicacion: "Limón", logo: null },
 ];
+
+/**
+ * Oroz Real Estate: la correduría de bienes raíces del grupo.
+ * Datos tomados de orozrealestate.com.
+ */
+export const REAL_ESTATE = {
+  nombre: "Oroz Real Estate",
+  url: "https://orozrealestate.com",
+  dominio: "orozrealestate.com",
+  logo: SUPABASE_IMAGES.orozRealEstate,
+  director: "Lic. Gabriel Orozco",
+  telefono: "+506 6000 3218",
+  telefonoHref: "+50660003218",
+  whatsapp: "https://wa.me/50660003218",
+  email: "gabrielorozco@orozrealestate.com",
+} as const;
+
+export const VENTAJA_IDS = ["juridica", "extranjeros", "plusvalia", "acompanamiento"] as const;
+export type VentajaId = (typeof VENTAJA_IDS)[number];
+
+export const TIPO_PROPIEDAD_IDS = ["casas", "lotes", "fincas"] as const;
+export type TipoPropiedadId = (typeof TIPO_PROPIEDAD_IDS)[number];
 
 export const ENLACES_PARQUES = [
   { nombre: "Skyline Canopy Tour", url: "https://www.skylinecanopytour.com" },
