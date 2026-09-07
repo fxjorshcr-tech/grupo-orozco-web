@@ -311,7 +311,7 @@ const es: Dictionary = {
     titulo: ["Su aliado de confianza en ", "bienes raíces"],
     lema: "Lotes, casas y propiedades al mejor precio, en todo Costa Rica.",
     texto:
-      "Oroz Real Estate es la correduría inmobiliaria del grupo. Ayuda a familias e inversionistas a encontrar la propiedad ideal y acompaña cada compra de principio a fin: desde la primera visita hasta la firma ante notario y la inscripción en el Registro Nacional. Como abogados, revisamos escritura, gravámenes, planos y permisos antes de cerrar. Todo transparente.",
+      "Oroz Real Estate son los asesores inmobiliarios del grupo. Ayudan a familias e inversionistas a encontrar la propiedad ideal y acompañan cada compra de principio a fin: desde la primera visita hasta la firma ante notario y la inscripción en el Registro Nacional. Como abogados, revisamos escritura, gravámenes, planos y permisos antes de cerrar. Todo transparente.",
     ventajasTitulo: "Por qué comprar con nosotros",
     ventajas: {
       juridica: {
@@ -543,7 +543,7 @@ const en: Dictionary = {
     titulo: ["Your trusted ally in ", "Costa Rican real estate"],
     lema: "Lots, houses and properties at the best price, anywhere in Costa Rica.",
     texto:
-      "Oroz Real Estate is the group's real estate brokerage. It helps families and investors find the right property and stays with them through the whole purchase: from the first visit to signing before a notary and recording the title in the National Registry. As lawyers, we review the deed, liens, survey plans and permits before closing. Fully transparent.",
+      "Oroz Real Estate are the group's real estate advisors. They help families and investors find the right property and stay with them through the whole purchase: from the first visit to signing before a notary and recording the title in the National Registry. As lawyers, we review the deed, liens, survey plans and permits before closing. Fully transparent.",
     ventajasTitulo: "Why buy with us",
     ventajas: {
       juridica: {

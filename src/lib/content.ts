@@ -147,7 +147,7 @@ export const OFICINAS_PROXIMAS: readonly OficinaProxima[] = [
 ];
 
 /**
- * Oroz Real Estate: la correduría de bienes raíces del grupo.
+ * Oroz Real Estate: los asesores inmobiliarios del grupo.
  * Datos tomados de orozrealestate.com.
  */
 export const REAL_ESTATE = {
