@@ -98,7 +98,7 @@ export type MetricaId = (typeof OROSTUDIOS_METRICAS)[number]["id"];
 
 /**
  * Oficinas fotográficas de OrostudiosCR dentro de los parques.
- * Estas cinco están abiertas y operando hoy.
+ * Estas seis están abiertas y operando hoy.
  */
 export const OFICINAS_ACTIVAS = [
   {
@@ -131,6 +131,12 @@ export const OFICINAS_ACTIVAS = [
     ubicacion: "La Fortuna de San Carlos",
     foto: SUPABASE_IMAGES.oficinaAttica,
   },
+  {
+    id: "brisas",
+    nombre: "Brisas de la Jungla",
+    ubicacion: "Limón",
+    foto: "/oficinas/brisas-de-la-jungla.jpg",
+  },
 ] as const;
 export type OficinaId = (typeof OFICINAS_ACTIVAS)[number]["id"];
 
@@ -143,7 +149,6 @@ export type OficinaProxima = {
 
 export const OFICINAS_PROXIMAS: readonly OficinaProxima[] = [
   { nombre: "Poas Adventure Park", ubicacion: "Poás, Alajuela", logo: SUPABASE_IMAGES.poas },
-  { nombre: "Brisas de la Jungla", ubicacion: "Limón", logo: null },
 ];
 
 /**

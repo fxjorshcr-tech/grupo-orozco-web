@@ -641,11 +641,11 @@ export default function HomePage({ lang }: { lang: Locale }) {
                     </p>
                   </div>
 
-                  <ul className="mx-auto mt-10 grid max-w-3xl gap-4 sm:grid-cols-2">
+                  <ul className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-4">
                     {OFICINAS_PROXIMAS.map((oficina) => (
                       <li
                         key={oficina.nombre}
-                        className="flex items-center gap-5 rounded-2xl border border-white/8 bg-surface/60 p-5 backdrop-blur-sm"
+                        className="flex w-full items-center gap-5 rounded-2xl border border-white/8 bg-surface/60 p-5 backdrop-blur-sm sm:w-[calc(50%-0.5rem)]"
                       >
                         <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border border-white/8 bg-ink">
                           {oficina.logo ? (

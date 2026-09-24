@@ -296,6 +296,8 @@ const es: Dictionary = {
           "Cabalgatas y aventura entre las playas y el bosque seco de Guanacaste, con servicio fotográfico en sitio.",
         attica:
           "Canopy sobre el bosque de La Fortuna. Oficina equipada para entregar tus fotos el mismo día.",
+        brisas:
+          "Aventura en plena jungla del Caribe. Fotos y videos de alta calidad con descarga inmediata al terminar tu recorrido.",
       },
     },
     proximas: {
@@ -528,6 +530,8 @@ const en: Dictionary = {
           "Horseback riding and adventure between the beaches and dry forest of Guanacaste, with on-site photography.",
         attica:
           "Canopy over the forest of La Fortuna. An office equipped to hand you your photos the same day.",
+        brisas:
+          "Adventure deep in the Caribbean jungle. High-quality photos and videos, ready to download as soon as your tour ends.",
       },
     },
     proximas: {
